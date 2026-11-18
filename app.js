@@ -59,25 +59,25 @@ const ROADMAP_STAGES = [
         core: {
           id: '1.2',
           stage: 'Stage 1: Setup & Architecture',
-          title: 'Two Interfaces (Ctrl + E)',
+          title: 'Two Interfaces (Antigravity 2.0 vs. IDE)',
           type: 'core',
           sources: ['codelab', 'handbook'],
           sourceLinks: [
             { label: 'Google Codelab', url: CODELAB_URL },
             { label: 'Hamodywe Handbook', url: HANDBOOK_URL },
           ],
-          shortSummary: 'Switch between Agent Manager (mission control) and Editor View (code workbench).',
+          shortSummary: 'Agent Manager vs. Editor View — and why Ctrl + E / Ctrl + L behave differently in agy 2.0.',
           explanation:
-            'Antigravity gives you two views of your work. Agent Manager is your "mission control" dashboard where you give goals and watch AI helpers work. Editor View is your hands-on workbench where you read and edit individual files yourself.',
+            'Older Codelab guides mention Ctrl + E (Agent Manager) and Ctrl + L (Chat) because Antigravity 1.x combined them in one editor window. In Antigravity 2.0 (the standalone desktop app), the whole window already IS your Agent Manager & Chat Canvas—so Ctrl + E and Ctrl + L are not needed there. Meanwhile, Antigravity IDE is a separate code editor window for hands-on file editing.',
           jargonTip:
-            'IDE stands for Integrated Development Environment—basically a smart notepad built specifically for organizing folders and writing code.',
+            'Why shortcuts sometimes fail: Antigravity 2.0 (desktop app) and Antigravity IDE (VS Code-style editor) are two separate apps, and extensions or Windows keymaps can override keys.',
           shortcuts: [
-            'Switch between <strong>Agent Manager</strong> and <strong>Editor View</strong>: <kbd>Ctrl</kbd> + <kbd>E</kbd> (Mac: <kbd>Cmd</kbd> + <kbd>E</kbd>).',
-            'Show or hide the <strong>Sidebar Chat</strong> inside the editor: <kbd>Ctrl</kbd> + <kbd>L</kbd> (Mac: <kbd>Cmd</kbd> + <kbd>L</kbd>).',
-            'Trigger a quick <strong>Inline Edit</strong> at your cursor: <kbd>Ctrl</kbd> + <kbd>I</kbd> (Mac: <kbd>Cmd</kbd> + <kbd>I</kbd>).',
+            '<strong>In Antigravity 2.0 (Desktop App):</strong> Use the <strong>Left Sidebar</strong> (<em>New Conversation, Projects, Settings</em>) and the <strong>Right Auxiliary Pane tabs</strong> (<em>Artifacts, Files Changed, Terminals, Subagents</em>)—<code>Ctrl + E</code> / <code>Ctrl + L</code> are inactive here.',
+            '<strong>In Antigravity IDE (Code Editor):</strong> Open Inline AI Edit with <kbd>Ctrl</kbd> + <kbd>I</kbd> (Mac: <kbd>Cmd</kbd> + <kbd>I</kbd>), toggle Sidebar Chat with <kbd>Ctrl</kbd> + <kbd>L</kbd> (or <kbd>Ctrl</kbd> + <kbd>E</kbd> in 1.x / IDE mode), and open Command Palette with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>.',
+            '<strong>Check or Fix Broken Keys in IDE:</strong> Press <kbd>Ctrl</kbd> + <kbd>K</kbd> then <kbd>Ctrl</kbd> + <kbd>S</kbd> (or go to <strong>Settings &rarr; Keyboard Shortcuts</strong>) to inspect or rebind keys in <code>keybindings.json</code>.',
           ],
           tryIt:
-            'Press Ctrl + E twice to flip back and forth between Agent Manager and Editor View so you feel comfortable finding either screen.',
+            'Check which window you have open: in Antigravity 2.0, click the Auxiliary Pane tabs on the right; in Antigravity IDE, highlight a line and press Ctrl + I or open Settings > Keyboard Shortcuts.',
         },
         rightBranch: {
           id: '1.3',
@@ -151,7 +151,7 @@ const ROADMAP_STAGES = [
           jargonTip:
             'Prompting simply means writing your instructions in the chat box. Clear goals ("build a dark-mode toggle that saves in the browser") beat vague requests.',
           shortcuts: [
-            'Click the main <strong>Chat Input Box</strong> (or press <kbd>Ctrl</kbd> + <kbd>L</kbd> in Editor View).',
+            'Click the main <strong>Chat Input Box</strong> (already visible on the main screen in Antigravity 2.0; in IDE, press <kbd>Ctrl</kbd> + <kbd>L</kbd>).',
             'Type 1–3 clear sentences describing the goal and what "done" looks like, then press <kbd>Enter</kbd>.',
           ],
           tryIt:
@@ -533,12 +533,17 @@ function persistState() {
 }
 
 let appState = loadSavedState();
-let activeFilter = 'all'; // Options: 'all' | 'codelab' | 'handbook' | 'completed'
+let activeFilter = 'all'; // Options: 'all' | 'codelab' | 'handbook' | 'completed' | 'question'
 let activeNodeId = null;
 
-/* Helper to read a node's current status ('todo' | 'in-progress' | 'done') */
+/* Helper to read a node's current status ('todo' | 'in-progress' | 'question' | 'done') */
 function getNodeStatus(nodeId) {
   return appState.statuses[nodeId] || 'todo';
+}
+
+/* Format half-step scores cleanly (e.g., 1.5 stays "1.5", 2.0 becomes "2") */
+function formatScore(value) {
+  return Number.isInteger(value) ? String(value) : value.toFixed(1);
 }
 
 /* Check whether a node matches the currently selected filter pill */
@@ -547,6 +552,7 @@ function nodeMatchesFilter(node) {
   if (activeFilter === 'codelab') return node.sources.includes('codelab');
   if (activeFilter === 'handbook') return node.sources.includes('handbook');
   if (activeFilter === 'completed') return getNodeStatus(node.id) === 'done';
+  if (activeFilter === 'question') return getNodeStatus(node.id) === 'question';
   return true;
 }
 
@@ -555,6 +561,13 @@ function nodeMatchesFilter(node) {
    "DOM" stands for Document Object Model — the browser's live map of all
    buttons, boxes, and text visible on this HTML page.
    -------------------------------------------------------------------------- */
+const headerCompactView = document.getElementById('header-compact-view');
+const headerFullView = document.getElementById('header-full-view');
+const headerCollapseBtn = document.getElementById('header-collapse-btn');
+const headerExpandBtn = document.getElementById('header-expand-btn');
+const compactProgressText = document.getElementById('compact-progress-text');
+const compactProgressBarFill = document.getElementById('compact-progress-bar-fill');
+
 const roadmapContainer = document.getElementById('roadmap-container');
 const progressText = document.getElementById('progress-text');
 const inProgressCountEl = document.getElementById('in-progress-count');
@@ -564,12 +577,15 @@ const countAllEl = document.getElementById('count-all');
 const countCodelabEl = document.getElementById('count-codelab');
 const countHandbookEl = document.getElementById('count-handbook');
 const countCompletedEl = document.getElementById('count-completed');
+const countQuestionEl = document.getElementById('count-question');
 
 const filterButtons = document.querySelectorAll('.filter-btn');
 const filterBanner = document.getElementById('filter-banner');
 const filterBannerText = document.getElementById('filter-banner-text');
 const clearFilterBtn = document.getElementById('clear-filter-btn');
 const emptyFilterState = document.getElementById('empty-filter-state');
+const emptyFilterTitle = document.getElementById('empty-filter-title');
+const emptyFilterDesc = document.getElementById('empty-filter-desc');
 const emptyResetFilterBtn = document.getElementById('empty-reset-filter-btn');
 
 const themeToggleBtn = document.getElementById('theme-toggle');
@@ -598,6 +614,7 @@ const drawerShortcutSteps = document.getElementById('drawer-shortcut-steps');
 const drawerTryIt = document.getElementById('drawer-try-it');
 const btnMarkDone = document.getElementById('btn-mark-done');
 const btnMarkProgress = document.getElementById('btn-mark-progress');
+const btnMarkQuestion = document.getElementById('btn-mark-question');
 const btnMarkReset = document.getElementById('btn-mark-reset');
 const drawerNotes = document.getElementById('drawer-notes');
 const notesSaveStatus = document.getElementById('notes-save-status');
@@ -605,9 +622,51 @@ const drawerPrevBtn = document.getElementById('drawer-prev-btn');
 const drawerNextBtn = document.getElementById('drawer-next-btn');
 
 /* --------------------------------------------------------------------------
-   SECTION 4: THEME (LIGHT / DARK MODE) TOGGLE
-   Applies dark mode to the whole page and remembers your choice.
+   SECTION 4: THEME (LIGHT / DARK MODE) & AUTO-MINIMIZING TOP BAR
+   Applies dark mode and minimizes the header smoothly when scrolling down.
    -------------------------------------------------------------------------- */
+let isHeaderMinimized = false;
+let manualHeaderMode = null; // null | 'minimized' | 'expanded'
+let headerToggleCooldownUntil = 0;
+
+function setHeaderMinimized(minimized) {
+  isHeaderMinimized = minimized;
+  headerFullView.classList.toggle('hidden', minimized);
+  headerCompactView.classList.toggle('hidden', !minimized);
+  headerToggleCooldownUntil = Date.now() + 260;
+}
+
+headerCollapseBtn.addEventListener('click', () => {
+  manualHeaderMode = 'minimized';
+  setHeaderMinimized(true);
+});
+
+headerExpandBtn.addEventListener('click', () => {
+  manualHeaderMode = window.scrollY > 110 ? 'expanded' : null;
+  setHeaderMinimized(false);
+});
+
+window.addEventListener(
+  'scroll',
+  () => {
+    if (Date.now() < headerToggleCooldownUntil) return;
+    const y = window.scrollY;
+    const scrollableDistance = document.documentElement.scrollHeight - window.innerHeight;
+
+    if (y < 20) {
+      if (manualHeaderMode === 'expanded') manualHeaderMode = null;
+      if (manualHeaderMode !== 'minimized' && isHeaderMinimized) {
+        setHeaderMinimized(false);
+      }
+    } else if (y > 120 && scrollableDistance > 260) {
+      if (manualHeaderMode !== 'expanded' && !isHeaderMinimized) {
+        setHeaderMinimized(true);
+      }
+    }
+  },
+  { passive: true }
+);
+
 function applyTheme(theme) {
   const isDark = theme === 'dark';
   document.documentElement.classList.toggle('dark', isDark);
@@ -633,7 +692,7 @@ themeToggleBtn.addEventListener('click', () => {
 
 /* --------------------------------------------------------------------------
    SECTION 5: TOAST POPUP & PROGRESS BAR UPDATES
-   Shows quick confirmations and keeps completion counts accurate everywhere.
+   Shows quick confirmations and counts Done = 1.0 and ? Need Check = 0.5.
    -------------------------------------------------------------------------- */
 let toastTimeout = null;
 
@@ -652,6 +711,7 @@ function updateStatsAndFilters() {
   const total = ALL_NODES.length;
   let doneCount = 0;
   let inProgressCount = 0;
+  let questionCount = 0;
   let codelabCount = 0;
   let handbookCount = 0;
 
@@ -659,32 +719,39 @@ function updateStatsAndFilters() {
     const status = getNodeStatus(node.id);
     if (status === 'done') doneCount += 1;
     if (status === 'in-progress') inProgressCount += 1;
+    if (status === 'question') questionCount += 1;
     if (node.sources.includes('codelab')) codelabCount += 1;
     if (node.sources.includes('handbook')) handbookCount += 1;
   });
 
-  const percent = total > 0 ? Math.round((doneCount / total) * 100) : 0;
+  /* Done counts as 1 full step; "?" (False Info / Need Check) counts as 0.5 (half) step */
+  const effectiveDone = doneCount + questionCount * 0.5;
+  const formattedDone = formatScore(effectiveDone);
+  const percent = total > 0 ? Math.round((effectiveDone / total) * 100) : 0;
 
-  /* Format matches ROADMAP_SPEC.md example: "4 / 18 Nodes Completed — 22%" */
-  progressText.textContent = `${doneCount} / ${total} Nodes Completed — ${percent}%`;
-  inProgressCountEl.textContent = `${inProgressCount} In Progress`;
+  /* Update both the full header meter and the minimized compact bar meter */
+  progressText.textContent = `${formattedDone} / ${total} Nodes Completed — ${percent}%`;
+  inProgressCountEl.textContent = `${inProgressCount} In Progress · ${questionCount} ? Need Check`;
   progressBarFill.style.width = `${percent}%`;
+  compactProgressText.textContent = `${formattedDone} / ${total} (${percent}%)`;
+  compactProgressBarFill.style.width = `${percent}%`;
 
   /* Update filter chip counters */
   countAllEl.textContent = String(total);
   countCodelabEl.textContent = String(codelabCount);
   countHandbookEl.textContent = String(handbookCount);
   countCompletedEl.textContent = String(doneCount);
+  countQuestionEl.textContent = String(questionCount);
 
   /* Highlight active filter button */
   filterButtons.forEach((btn) => {
     const isActive = btn.dataset.filter === activeFilter;
     if (isActive) {
       btn.className =
-        'filter-btn px-3 py-1 text-xs font-bold rounded-md border-2 border-slate-900 dark:border-amber-300 bg-slate-900 dark:bg-amber-300 text-white dark:text-slate-900 transition cursor-pointer';
+        'filter-btn px-2.5 py-1 text-xs font-bold rounded-md border-2 border-slate-900 dark:border-amber-300 bg-slate-900 dark:bg-amber-300 text-white dark:text-slate-900 transition cursor-pointer';
     } else {
       btn.className =
-        'filter-btn px-3 py-1 text-xs font-bold rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer';
+        'filter-btn px-2.5 py-1 text-xs font-bold rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer';
     }
   });
 
@@ -697,13 +764,27 @@ function updateStatsAndFilters() {
       codelab: 'Google Codelab',
       handbook: 'Hamodywe Handbook',
       completed: 'Completed',
+      question: '? Need Check (0.5x)',
     };
     filterBannerText.textContent = `Showing ${matchingCount} of ${total} nodes matching "${labelMap[activeFilter]}".`;
     filterBanner.classList.remove('hidden');
   }
 
-  /* Show friendly empty message if user picks "Completed" with 0 nodes done yet */
-  emptyFilterState.classList.toggle('hidden', matchingCount > 0);
+  /* Show friendly empty message if Completed or ? filter has 0 matching nodes */
+  if (matchingCount === 0) {
+    if (activeFilter === 'question') {
+      emptyFilterTitle.textContent = 'No nodes flagged with "?" yet!';
+      emptyFilterDesc.innerHTML =
+        'Click the <strong>?</strong> button on any box (or inside its guide drawer) when you spot outdated info or want to double-check a step. It counts as 0.5x progress.';
+    } else {
+      emptyFilterTitle.textContent = 'No completed nodes yet!';
+      emptyFilterDesc.innerHTML =
+        'Click any yellow or purple box on the roadmap and press <strong>Mark Done</strong> to track your first win.';
+    }
+    emptyFilterState.classList.remove('hidden');
+  } else {
+    emptyFilterState.classList.add('hidden');
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -712,31 +793,35 @@ function updateStatsAndFilters() {
    purple/blue practice cards connected by dashed branch lines.
    -------------------------------------------------------------------------- */
 
-/* Creates a single interactive node button card */
+/* Creates a single interactive node card with a one-click "?" check toggle */
 function createNodeCard(node) {
   const status = getNodeStatus(node.id);
   const matches = nodeMatchesFilter(node);
+  const isStatusOnlyFilter = activeFilter === 'completed' || activeFilter === 'question';
 
-  const btn = document.createElement('button');
-  btn.type = 'button';
-  btn.dataset.nodeId = node.id;
-  btn.setAttribute('aria-label', `${node.id} ${node.title} — ${status}`);
+  const card = document.createElement('div');
+  card.setAttribute('role', 'button');
+  card.setAttribute('tabindex', '0');
+  card.dataset.nodeId = node.id;
+  card.setAttribute('aria-label', `${node.id} ${node.title} — ${status}`);
 
-  /* Choose color classes: completed (green) > in-progress (sky) > core (amber) vs practice (purple) */
+  /* Choose color classes: completed (green) > question (orange) > in-progress (sky) > core (amber) vs practice (purple) */
   let styleClass = node.type === 'core' ? 'node-core' : 'node-practice';
   if (status === 'done') {
     styleClass = 'node-done';
+  } else if (status === 'question') {
+    styleClass = 'node-question';
   } else if (status === 'in-progress') {
     styleClass = 'node-in-progress';
   }
 
-  /* Dim non-matching nodes instead of breaking flowchart lines, or hide if filter is "completed" */
+  /* Dim non-matching nodes instead of breaking flowchart lines, or hide if using a status-only filter */
   let visibilityClass = '';
   if (!matches) {
-    visibilityClass = activeFilter === 'completed' ? 'hidden' : 'opacity-25 saturate-50';
+    visibilityClass = isStatusOnlyFilter ? 'hidden' : 'opacity-25 saturate-50';
   }
 
-  btn.className = `roadmap-node ${styleClass} ${visibilityClass} w-full text-left rounded-xl px-4 py-3 cursor-pointer relative group focus:outline-none focus:ring-2 focus:ring-indigo-500`;
+  card.className = `roadmap-node ${styleClass} ${visibilityClass} w-full text-left rounded-xl px-4 py-3 cursor-pointer relative group focus:outline-none focus:ring-2 focus:ring-indigo-500`;
 
   /* Status indicator badge in the top-right corner of the card */
   let statusBadgeHtml = '';
@@ -744,6 +829,12 @@ function createNodeCard(node) {
     statusBadgeHtml = `
       <span class="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full bg-green-700 text-white dark:bg-green-500 dark:text-slate-950 shrink-0">
         ✓ Done
+      </span>
+    `;
+  } else if (status === 'question') {
+    statusBadgeHtml = `
+      <span class="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full bg-orange-600 text-white dark:bg-orange-400 dark:text-slate-950 shrink-0">
+        ? Check (0.5x)
       </span>
     `;
   } else if (status === 'in-progress') {
@@ -766,6 +857,12 @@ function createNodeCard(node) {
     `;
   }
 
+  /* Quick one-click "?" button so you can flag false/unclear info right on the flowchart */
+  const quickQButtonClass =
+    status === 'question'
+      ? 'bg-orange-600 text-white border-orange-800 dark:bg-orange-400 dark:text-slate-950 dark:border-orange-200'
+      : 'bg-white/80 dark:bg-slate-950/60 text-slate-700 dark:text-slate-200 border-slate-900/25 dark:border-white/25 hover:bg-orange-500 hover:text-white hover:border-orange-700';
+
   /* Source mini tags at the bottom of the card */
   const sourceTagsHtml = node.sources
     .map((src) => {
@@ -774,12 +871,23 @@ function createNodeCard(node) {
     })
     .join('');
 
-  btn.innerHTML = `
+  card.innerHTML = `
     <div class="flex items-start justify-between gap-2">
       <span class="font-mono text-[11px] font-extrabold px-1.5 py-0.5 rounded bg-white/80 dark:bg-slate-950/60 border border-slate-900/20 dark:border-white/20">
         ${node.id}
       </span>
-      ${statusBadgeHtml}
+      <div class="flex items-center gap-1.5">
+        ${statusBadgeHtml}
+        <button
+          type="button"
+          data-quick-question="${node.id}"
+          aria-label="Flag ${node.id} with ? (False Info or Need Check — counts as 0.5x)"
+          title="Flag as ? (False Info / Need Check — counts as 0.5x)"
+          class="w-5 h-5 rounded-full text-[11px] font-black border transition cursor-pointer flex items-center justify-center shrink-0 ${quickQButtonClass}"
+        >
+          ?
+        </button>
+      </div>
     </div>
     <h3 class="node-title mt-2 text-sm sm:text-[15px] font-extrabold leading-snug">
       ${node.title}
@@ -797,8 +905,35 @@ function createNodeCard(node) {
     </div>
   `;
 
-  btn.addEventListener('click', () => openDrawer(node.id));
-  return btn;
+  /* Clicking the "?" button toggles the half-credit flag without opening the drawer */
+  const quickQBtn = card.querySelector('[data-quick-question]');
+  quickQBtn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    const current = getNodeStatus(node.id);
+    if (current === 'question') {
+      delete appState.statuses[node.id];
+      showToast(`Cleared ? flag on ${node.id}.`);
+    } else {
+      appState.statuses[node.id] = 'question';
+      showToast(`Flagged ${node.id} with ? (counts as 0.5 completed).`);
+    }
+    persistState();
+    if (activeNodeId === node.id) {
+      refreshDrawerStatusUI(node);
+    }
+    renderRoadmap();
+  });
+
+  /* Clicking anywhere else on the card opens the slide-over guide drawer */
+  card.addEventListener('click', () => openDrawer(node.id));
+  card.addEventListener('keydown', (event) => {
+    if (event.target === card && (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault();
+      openDrawer(node.id);
+    }
+  });
+
+  return card;
 }
 
 /* Draws a crisp vertical SVG connector arrow pointing down along the main spine */
@@ -840,9 +975,12 @@ function createHorizontalBranchLine(direction) {
 }
 
 /* Renders the Stage 6 Mastery Milestone endpoint at the bottom of the flowchart */
-function createStage6Milestone(doneCount, totalCount) {
-  const percent = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
-  const allComplete = doneCount === totalCount;
+function createStage6Milestone(effectiveDone, totalCount, doneNodes, questionNodes) {
+  const percent = totalCount > 0 ? Math.round((effectiveDone / totalCount) * 100) : 0;
+  const allComplete = doneNodes === totalCount;
+  const scoreText = formatScore(effectiveDone);
+  const questionNote =
+    questionNodes > 0 ? ` (includes ${questionNodes} flagged with ? counting as 0.5 each)` : '';
 
   const section = document.createElement('section');
   section.id = 'stage-6';
@@ -865,7 +1003,7 @@ function createStage6Milestone(doneCount, totalCount) {
         }
       </h2>
       <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 max-w-lg mx-auto leading-relaxed">
-        Once you complete Stages 1 through 5 (${doneCount} of ${totalCount} nodes done — ${percent}%), you can direct Google Antigravity to plan blueprints, write code, verify UI in the browser, and remember your personal rules across any new project.
+        Once you complete Stages 1 through 5 (${scoreText} of ${totalCount} nodes done — ${percent}%${questionNote}), you can direct Google Antigravity to plan blueprints, write code, verify UI in the browser, and remember your personal rules across any new project.
       </p>
       <div class="mt-4 flex flex-wrap justify-center gap-2 text-[11px] font-bold">
         <span class="px-2.5 py-1 rounded-md bg-amber-100 dark:bg-amber-900/40 text-amber-950 dark:text-amber-200 border border-amber-300 dark:border-amber-700">1. Goal Prompt</span>
@@ -889,18 +1027,22 @@ function renderRoadmap() {
 
   const totalNodes = ALL_NODES.length;
   const doneNodes = ALL_NODES.filter((n) => getNodeStatus(n.id) === 'done').length;
+  const questionNodes = ALL_NODES.filter((n) => getNodeStatus(n.id) === 'question').length;
+  const effectiveDone = doneNodes + questionNodes * 0.5;
+  const isStatusOnlyFilter = activeFilter === 'completed' || activeFilter === 'question';
+  const matchingCount = ALL_NODES.filter(nodeMatchesFilter).length;
 
-  /* If filtering by Completed and nothing is done yet, keep canvas clean */
-  if (activeFilter === 'completed' && doneNodes === 0) {
+  /* If filtering by Completed or "?" and nothing matches yet, keep canvas clean */
+  if (isStatusOnlyFilter && matchingCount === 0) {
     return;
   }
 
   ROADMAP_STAGES.forEach((stage, stageIndex) => {
-    /* If filtering by Completed, skip stages that have 0 matching nodes */
+    /* For status-only filters, skip stages that have 0 matching nodes */
     const stageHasMatch = stage.rows.some((row) =>
       [row.core, row.leftBranch, row.rightBranch].filter(Boolean).some(nodeMatchesFilter)
     );
-    if (activeFilter === 'completed' && !stageHasMatch) {
+    if (isStatusOnlyFilter && !stageHasMatch) {
       return;
     }
 
@@ -934,7 +1076,7 @@ function renderRoadmap() {
     stage.rows.forEach((row) => {
       const rowNodes = [row.core, row.leftBranch, row.rightBranch].filter(Boolean);
       const rowHasMatch = rowNodes.some(nodeMatchesFilter);
-      if (activeFilter === 'completed' && !rowHasMatch) {
+      if (isStatusOnlyFilter && !rowHasMatch) {
         return;
       }
 
@@ -950,7 +1092,7 @@ function renderRoadmap() {
       const leftSlot = document.createElement('div');
       leftSlot.className = 'w-full md:flex-1 flex items-center justify-end order-2 md:order-1';
 
-      if (row.leftBranch && (activeFilter !== 'completed' || nodeMatchesFilter(row.leftBranch))) {
+      if (row.leftBranch && (!isStatusOnlyFilter || nodeMatchesFilter(row.leftBranch))) {
         const branchWrap = document.createElement('div');
         branchWrap.className = 'w-full md:max-w-[270px]';
         branchWrap.appendChild(createNodeCard(row.leftBranch));
@@ -964,7 +1106,7 @@ function renderRoadmap() {
       /* CENTER COLUMN (Core Spine Node) */
       const centerSlot = document.createElement('div');
       centerSlot.className = 'w-full md:w-[330px] shrink-0 order-1 md:order-2';
-      if (row.core && (activeFilter !== 'completed' || nodeMatchesFilter(row.core))) {
+      if (row.core && (!isStatusOnlyFilter || nodeMatchesFilter(row.core))) {
         centerSlot.appendChild(createNodeCard(row.core));
       }
 
@@ -972,7 +1114,7 @@ function renderRoadmap() {
       const rightSlot = document.createElement('div');
       rightSlot.className = 'w-full md:flex-1 flex items-center justify-start order-3';
 
-      if (row.rightBranch && (activeFilter !== 'completed' || nodeMatchesFilter(row.rightBranch))) {
+      if (row.rightBranch && (!isStatusOnlyFilter || nodeMatchesFilter(row.rightBranch))) {
         rightSlot.appendChild(createHorizontalBranchLine('right'));
         const branchWrap = document.createElement('div');
         branchWrap.className = 'w-full md:max-w-[270px]';
@@ -989,7 +1131,7 @@ function renderRoadmap() {
     });
 
     /* Directional arrow leading out of this stage down into the next stage */
-    if (stageIndex < ROADMAP_STAGES.length - 1 || activeFilter !== 'completed') {
+    if (stageIndex < ROADMAP_STAGES.length - 1 || !isStatusOnlyFilter) {
       stageSection.appendChild(createVerticalArrowConnector(44));
     }
 
@@ -997,8 +1139,8 @@ function renderRoadmap() {
   });
 
   /* Append Stage 6 Milestone endpoint connected at the bottom of the flowchart */
-  if (activeFilter === 'all' || activeFilter === 'completed') {
-    roadmapContainer.appendChild(createStage6Milestone(doneNodes, totalNodes));
+  if (activeFilter === 'all' || isStatusOnlyFilter) {
+    roadmapContainer.appendChild(createStage6Milestone(effectiveDone, totalNodes, doneNodes, questionNodes));
   }
 }
 
@@ -1022,9 +1164,13 @@ function refreshDrawerStatusUI(node) {
 
   /* Update Status Pill */
   if (status === 'done') {
-    drawerStatusPill.textContent = '✓ Completed';
+    drawerStatusPill.textContent = '✓ Completed (1x)';
     drawerStatusPill.className =
       'text-xs font-bold px-2.5 py-0.5 rounded-full bg-green-100 text-green-800 border border-green-400 dark:bg-green-900/60 dark:text-green-200 dark:border-green-600';
+  } else if (status === 'question') {
+    drawerStatusPill.textContent = '? Need Check (0.5x)';
+    drawerStatusPill.className =
+      'text-xs font-bold px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-900 border border-orange-400 dark:bg-orange-950/70 dark:text-orange-200 dark:border-orange-500';
   } else if (status === 'in-progress') {
     drawerStatusPill.textContent = '◔ In Progress';
     drawerStatusPill.className =
@@ -1043,6 +1189,10 @@ function refreshDrawerStatusUI(node) {
   btnMarkProgress.classList.toggle('ring-2', status === 'in-progress');
   btnMarkProgress.classList.toggle('ring-offset-2', status === 'in-progress');
   btnMarkProgress.classList.toggle('ring-sky-500', status === 'in-progress');
+
+  btnMarkQuestion.classList.toggle('ring-2', status === 'question');
+  btnMarkQuestion.classList.toggle('ring-offset-2', status === 'question');
+  btnMarkQuestion.classList.toggle('ring-orange-500', status === 'question');
 }
 
 function openDrawer(nodeId) {
@@ -1158,6 +1308,11 @@ btnMarkProgress.addEventListener('click', () => {
   showToast('Marked as In Progress!');
 });
 
+btnMarkQuestion.addEventListener('click', () => {
+  setActiveNodeStatus('question');
+  showToast('Flagged with ? (counts as 0.5 completed work)!');
+});
+
 btnMarkReset.addEventListener('click', () => {
   setActiveNodeStatus('todo');
   showToast('Node status reset.');
@@ -1255,7 +1410,7 @@ importFileInput.addEventListener('change', (event) => {
       const nextNotes = {};
 
       Object.keys(parsed.statuses).forEach((id) => {
-        if (NODE_MAP[id] && ['todo', 'in-progress', 'done'].includes(parsed.statuses[id])) {
+        if (NODE_MAP[id] && ['todo', 'in-progress', 'question', 'done'].includes(parsed.statuses[id])) {
           if (parsed.statuses[id] !== 'todo') {
             nextStatuses[id] = parsed.statuses[id];
           }

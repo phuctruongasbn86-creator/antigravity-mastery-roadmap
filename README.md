@@ -19,21 +19,23 @@ Because this project uses pure HTML, Tailwind CSS (via CDN), and Vanilla JavaScr
   - **Yellow / Amber Nodes:** Core Must-Learn Topics along the main vertical spine.
   - **Purple / Blue Nodes:** Hands-On Practice Tasks & Sub-Topics branching off the spine with dashed connectors.
   - **Sky Blue Nodes:** Topics currently **In Progress**.
-  - **Green / Strikethrough Nodes:** **Completed** topics.
+  - **Orange `?` Nodes:** Topics flagged as **False Info / Need Check (`?`)**, counting as **half (`0.5x`)** completed work.
+  - **Green / Strikethrough Nodes:** **Completed (`1x`)** topics.
+- **Auto-Minimizing Top Bar:** Automatically shrinks into a compact slim bar when you scroll down so you get maximum screen space for the flowchart, and expands when scrolling back up or clicking **Expand Bar**.
 - **Slide-Over Learning Drawer:** Click any node to open a right-hand guide containing:
   1. **Plain-English Explanation** & beginner term tips (no heavy jargon).
-  2. **Exact UI Click Path & Keyboard Shortcuts** (like `Ctrl + E`, `Ctrl + L`, `Ctrl + I`).
+  2. **Exact UI Click Path & Keyboard Shortcuts** (covering both **Antigravity 2.0** desktop app navigation and **Antigravity IDE** shortcuts like `Ctrl + I` / `Ctrl + K, Ctrl + S`).
   3. **Quick Try-It Step** to practice right away.
   4. **Reference Source Links** (`Google Codelab` and/or `Hamodywe Handbook`).
-  5. **Status Controls** (`Mark as Done`, `In Progress`, `Reset`) and **Personal Notes**.
-- **Progress Tracking & Filtering:** Live completion bar (`X / 18 Nodes Completed — %`) and one-click filters (`All`, `Codelab`, `Handbook`, `Completed`).
+  5. **Status Controls** (`Mark Done`, `In Progress`, `? Check (0.5x)`, `Reset`) and **Personal Notes**.
+- **Progress Tracking & Filtering:** Live completion bar (`X / 18 Nodes Completed — %`, counting `✓ = 1` and `? = 0.5`) and one-click filters (`All`, `Codelab`, `Handbook`, `Completed`, `? Need Check`).
 - **Automatic Persistence + JSON Backup:** Saves all statuses, notes, and Light/Dark Mode preference automatically in browser `localStorage`, plus **Export JSON** and **Import JSON** buttons so your progress is never lost.
 
 ---
 
 ## Curriculum Overview (18 Nodes Across Stages 1–6)
 
-1. **Stage 1: Setup & Architecture** — Installation & Account Quota, Two Interfaces (`Ctrl + E`), Workspaces & Projects, Safety & Permission Locks.
+1. **Stage 1: Setup & Architecture** — Installation & Account Quota, Two Interfaces (`Antigravity 2.0` vs. `IDE` keybindings), Workspaces & Projects, Safety & Permission Locks.
 2. **Stage 2: The 6-Step Agentic Loop** — Initiation & Prompting, Operating Modes (`Planning` vs. `Fast`), Model Selection & `Orchestrator (Argon)`, Execution & Terminal Logs.
 3. **Stage 3: Artifacts & Human-in-the-Loop Review** — Task List Artifact (`task.md`), Implementation Plan & Inline Comments (`implementation_plan.md`), Red/Green Code Diffs, Walkthrough Artifact (`walkthrough.md`).
 4. **Stage 4: Built-In Browser & Self-Verification** — Browser Subagent and Visual Verification Artifacts (screenshots & recordings).
