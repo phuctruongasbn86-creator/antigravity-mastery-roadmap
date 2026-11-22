@@ -222,7 +222,7 @@
   <header id="main-header" class="sticky top-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b-2 border-slate-900 dark:border-slate-700 shadow-sm transition-all duration-200">
     <!-- Slim Minimized View (Shown when scrolled down or manually minimized) -->
     <div id="header-compact-view" class="hidden max-w-5xl mx-auto px-4 sm:px-6 py-2">
-      <div class="flex items-center justify-between gap-3">
+      <div class="flex items-center justify-between gap-2 sm:gap-3">
         <div class="flex items-center gap-2.5 min-w-0">
           <div
             class="w-7 h-7 rounded-md bg-amber-300 dark:bg-amber-400 border-2 border-slate-900 flex items-center justify-center shrink-0"
@@ -233,7 +233,7 @@
               <circle cx="12" cy="12" r="3" />
             </svg>
           </div>
-          <span class="font-extrabold text-xs sm:text-sm truncate text-slate-900 dark:text-white">
+          <span class="font-extrabold text-xs sm:text-sm truncate text-slate-900 dark:text-white" data-i18n-html="compactTitle">
             <code class="font-mono">agy</code> Mastery Roadmap
           </span>
         </div>
@@ -251,19 +251,31 @@
           </span>
         </div>
 
-        <button
-          id="header-expand-btn"
-          type="button"
-          class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-bold rounded-lg bg-slate-900 dark:bg-amber-300 text-white dark:text-slate-900 hover:opacity-90 transition cursor-pointer shrink-0"
-        >
-          <span>▾</span> Expand Bar
-        </button>
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button
+            id="compact-lang-toggle-btn"
+            type="button"
+            title="Switch language between English and Vietnamese"
+            class="inline-flex items-center gap-1 px-2 py-1 text-xs font-bold rounded-lg bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer"
+          >
+            <span>🌐</span>
+            <span id="compact-lang-label">VI</span>
+          </button>
+
+          <button
+            id="header-expand-btn"
+            type="button"
+            class="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-bold rounded-lg bg-slate-900 dark:bg-amber-300 text-white dark:text-slate-900 hover:opacity-90 transition cursor-pointer shrink-0"
+          >
+            <span>▾</span> <span data-i18n="expandBar">Expand Bar</span>
+          </button>
+        </div>
       </div>
     </div>
 
     <!-- Full Expanded Header View -->
     <div id="header-full-view" class="max-w-5xl mx-auto px-4 sm:px-6 py-3.5">
-      <!-- Top Row: Title, Subtitle & Action Buttons (Theme, Export, Import, Minimize) -->
+      <!-- Top Row: Title, Subtitle & Action Buttons (Language, Export, Import, Theme, Minimize) -->
       <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
         <div class="flex items-start sm:items-center gap-3">
           <!-- Antigravity Rocket/Node Logo Badge -->
@@ -279,21 +291,31 @@
 
           <div>
             <div class="flex flex-wrap items-center gap-2">
-              <h1 class="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              <h1 class="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 dark:text-white" data-i18n-html="mainTitle">
                 Google Antigravity (<code class="font-mono text-sm px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600">agy</code>) Mastery Roadmap
               </h1>
-              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-200 border border-indigo-300 dark:border-indigo-700">
+              <span class="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-200 border border-indigo-300 dark:border-indigo-700" data-i18n="beginnerBadge">
                 Beginner Path
               </span>
             </div>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-0.5" data-i18n-html="mainSubtitle">
               Click any box to open its guide, or click <strong>?</strong> on a box to flag info to double-check (counts as 0.5x progress).
             </p>
           </div>
         </div>
 
-        <!-- Utility Buttons: Export JSON, Import JSON, Dark Mode, and Minimize Bar -->
+        <!-- Utility Buttons: Language Toggle, Export JSON, Import JSON, Dark Mode, and Minimize Bar -->
         <div class="flex flex-wrap items-center gap-2">
+          <button
+            id="lang-toggle-btn"
+            type="button"
+            aria-label="Switch Language"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-900 dark:text-indigo-200 border border-indigo-300 dark:border-indigo-700 hover:bg-indigo-100 dark:hover:bg-indigo-900 transition cursor-pointer"
+          >
+            <span>🌐</span>
+            <span id="lang-toggle-label">Tiếng Việt</span>
+          </button>
+
           <button
             id="export-btn"
             type="button"
@@ -303,7 +325,7 @@
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4-4 4m0 0-4-4m4 4V4" />
             </svg>
-            Export JSON
+            <span data-i18n="exportBtn">Export JSON</span>
           </button>
 
           <button
@@ -315,7 +337,7 @@
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8-4-4m0 0L8 8m4-4v12" />
             </svg>
-            Import JSON
+            <span data-i18n="importBtn">Import JSON</span>
           </button>
           <!-- Hidden file picker activated when you click Import JSON -->
           <input id="import-file-input" type="file" accept=".json,application/json" class="hidden" />
@@ -337,7 +359,7 @@
             title="Minimize top bar to see more of the roadmap"
             class="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-600 hover:bg-slate-200 dark:hover:bg-slate-700 transition cursor-pointer"
           >
-            <span>▴</span> Hide Bar
+            <span>▴</span> <span data-i18n="hideBar">Hide Bar</span>
           </button>
         </div>
       </div>
@@ -365,41 +387,41 @@
 
         <!-- Source & Status Filter Bar -->
         <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label="Filter roadmap nodes">
-          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 mr-1">Filter:</span>
+          <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 mr-1" data-i18n="filterLabel">Filter:</span>
           <button
             type="button"
             data-filter="all"
             class="filter-btn px-2.5 py-1 text-xs font-bold rounded-md border transition cursor-pointer"
           >
-            All (<span id="count-all">18</span>)
+            <span data-i18n="filterAll">All</span> (<span id="count-all">18</span>)
           </button>
           <button
             type="button"
             data-filter="codelab"
             class="filter-btn px-2.5 py-1 text-xs font-bold rounded-md border transition cursor-pointer"
           >
-            Codelab (<span id="count-codelab">0</span>)
+            <span data-i18n="filterCodelab">Codelab</span> (<span id="count-codelab">0</span>)
           </button>
           <button
             type="button"
             data-filter="handbook"
             class="filter-btn px-2.5 py-1 text-xs font-bold rounded-md border transition cursor-pointer"
           >
-            Handbook (<span id="count-handbook">0</span>)
+            <span data-i18n="filterHandbook">Handbook</span> (<span id="count-handbook">0</span>)
           </button>
           <button
             type="button"
             data-filter="completed"
             class="filter-btn px-2.5 py-1 text-xs font-bold rounded-md border transition cursor-pointer"
           >
-            Completed (<span id="count-completed">0</span>)
+            <span data-i18n="filterCompleted">Completed</span> (<span id="count-completed">0</span>)
           </button>
           <button
             type="button"
             data-filter="question"
             class="filter-btn px-2.5 py-1 text-xs font-bold rounded-md border transition cursor-pointer"
           >
-            ? Need Check (<span id="count-question">0</span>)
+            <span data-i18n="filterQuestion">? Need Check</span> (<span id="count-question">0</span>)
           </button>
         </div>
       </div>
@@ -407,10 +429,101 @@
   </header>
 
   <!-- =====================================================================
-       SECTION 2: MAIN ROADMAP WORKSPACE (LEGEND + VERTICAL FLOWCHART)
-       Displays the color legend and renders all stages from Stage 1 to 6.
+       SECTION 2: MAIN ROADMAP WORKSPACE (OVERVIEW + LEGEND + FLOWCHART)
+       Shows a beginner-friendly Antigravity overview, the color legend,
+       and all interactive roadmap stages from Stage 1 down to Stage 6.
        ===================================================================== -->
   <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 pb-20">
+    <!-- Collapsible Antigravity Overview Card (Quick Intro Before Stage 1) -->
+    <section
+      id="antigravity-overview"
+      aria-label="Google Antigravity Overview"
+      class="mb-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-900 dark:border-slate-700 shadow-[4px_4px_0px_#0f172a] dark:shadow-[4px_4px_0px_#020617] overflow-hidden"
+    >
+      <!-- Overview Header Bar with Show/Hide Toggle -->
+      <div class="px-5 py-3.5 bg-amber-50 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-2.5">
+          <span class="text-lg" aria-hidden="true">🚀</span>
+          <div>
+            <h2 class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white" data-i18n-html="overviewHeading">
+              What is Google Antigravity (<code class="font-mono text-xs px-1 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600">agy</code>)? — Quick Overview
+            </h2>
+            <p class="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300" data-i18n="overviewSubtitle">
+              Start here if you are brand new to agentic AI coding.
+            </p>
+          </div>
+        </div>
+        <button
+          id="overview-toggle-btn"
+          type="button"
+          aria-expanded="true"
+          aria-controls="overview-body"
+          class="inline-flex items-center gap-1 px-3 py-1 text-xs font-bold rounded-lg bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700 transition cursor-pointer shrink-0"
+        >
+          <span id="overview-toggle-label">Hide Overview ▴</span>
+        </button>
+      </div>
+
+      <!-- Collapsible Overview Content -->
+      <div id="overview-body" class="p-5 space-y-4">
+        <!-- Plain-English Big Picture -->
+        <p class="text-sm leading-relaxed text-slate-700 dark:text-slate-200" data-i18n-html="overviewIntro">
+          <strong>Google Antigravity</strong> is an AI-first development platform from Google DeepMind. Instead of typing every line of code yourself, you describe your goal in plain English and act like a project director while AI agents <strong>plan the steps, edit files, run commands, and visually test your app in a browser</strong>—pausing so you stay in control.
+        </p>
+
+        <!-- 4 Surfaces Grid: The 4 Ways You Can Use Antigravity -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="p-3.5 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-800">
+            <div class="text-xs font-extrabold text-amber-950 dark:text-amber-200 mb-1" data-i18n="surface1Title">
+              1. Antigravity 2.0 (App)
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed" data-i18n="surface1Desc">
+              Standalone desktop "mission control" app to chat with agents, run parallel tasks, and inspect plans &amp; changed files side by side.
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-300 dark:border-indigo-800">
+            <div class="text-xs font-extrabold text-indigo-950 dark:text-indigo-200 mb-1" data-i18n="surface2Title">
+              2. Antigravity IDE
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed" data-i18n-html="surface2Desc">
+              AI-powered VS Code-style code editor with smart <kbd>Tab</kbd> autocomplete, inline edits (<kbd>Ctrl</kbd>+<kbd>I</kbd>), and red/green code diffs.
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-sky-50/70 dark:bg-sky-950/30 border border-sky-300 dark:border-sky-800">
+            <div class="text-xs font-extrabold text-sky-950 dark:text-sky-200 mb-1" data-i18n-html="surface3Title">
+              3. Antigravity CLI (<code>agy</code>)
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed" data-i18n="surface3Desc">
+              Lightweight terminal command-line assistant for fast keyboard-only chats, quick project edits, and slash commands.
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-300 dark:border-emerald-800">
+            <div class="text-xs font-extrabold text-emerald-950 dark:text-emerald-200 mb-1" data-i18n="surface4Title">
+              4. SDK &amp; Extensions
+            </div>
+            <p class="text-xs text-slate-700 dark:text-slate-300 leading-relaxed" data-i18n="surface4Desc">
+              Connects Antigravity agents to other editors (VS Code, JetBrains, Zed) or lets developers automate agents using the Python SDK.
+            </p>
+          </div>
+        </div>
+
+        <!-- How One Typical Task Flows -->
+        <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center gap-2 text-xs">
+          <span class="font-extrabold text-slate-800 dark:text-slate-100 mr-1" data-i18n="flowLabel">How a task flows:</span>
+          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 font-semibold text-slate-800 dark:text-slate-200" data-i18n="flowStep1">1. Share your goal</span>
+          <span class="text-slate-400">→</span>
+          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 font-semibold text-slate-800 dark:text-slate-200" data-i18n="flowStep2">2. Review blueprint</span>
+          <span class="text-slate-400">→</span>
+          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 font-semibold text-slate-800 dark:text-slate-200" data-i18n="flowStep3">3. Approve edits &amp; commands</span>
+          <span class="text-slate-400">→</span>
+          <span class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 font-semibold text-slate-800 dark:text-slate-200" data-i18n="flowStep4">4. Verify in built-in browser</span>
+        </div>
+      </div>
+    </section>
+
     <!-- Color-Coding Legend Box (Matches roadmap.sh convention) -->
     <section
       aria-label="Roadmap Color Legend"
@@ -420,26 +533,26 @@
         <div class="flex flex-wrap items-center gap-4 text-xs font-semibold">
           <div class="flex items-center gap-2">
             <span class="w-4 h-4 rounded bg-[#fef08a] dark:bg-[#422006] border-2 border-slate-900 dark:border-yellow-400 inline-block"></span>
-            <span>Core Must-Learn Topic (Main Spine)</span>
+            <span data-i18n="legendCore">Core Must-Learn Topic (Main Spine)</span>
           </div>
           <div class="flex items-center gap-2">
             <span class="w-4 h-4 rounded bg-[#ede9fe] dark:bg-[#1e1b4b] border-2 border-indigo-700 dark:border-indigo-400 inline-block"></span>
-            <span>Hands-On Practice &amp; Sub-Topics</span>
+            <span data-i18n="legendPractice">Hands-On Practice &amp; Sub-Topics</span>
           </div>
           <div class="flex items-center gap-2">
             <span class="w-4 h-4 rounded bg-[#e0f2fe] dark:bg-[#082f49] border-2 border-sky-600 dark:border-sky-400 inline-block"></span>
-            <span>In Progress</span>
+            <span data-i18n="legendInProgress">In Progress</span>
           </div>
           <div class="flex items-center gap-2">
             <span class="w-4 h-4 rounded bg-[#ffedd5] dark:bg-[#431407] border-2 border-orange-600 dark:border-orange-400 inline-flex items-center justify-center text-[10px] font-black text-orange-700 dark:text-orange-300">?</span>
-            <span>False Info / Need Check (0.5x)</span>
+            <span data-i18n="legendQuestion">False Info / Need Check (0.5x)</span>
           </div>
           <div class="flex items-center gap-2">
             <span class="w-4 h-4 rounded bg-[#dcfce7] dark:bg-[#052e16] border-2 border-green-700 dark:border-green-500 inline-block"></span>
-            <span class="line-through">Completed (1x)</span>
+            <span class="line-through" data-i18n="legendCompleted">Completed (1x)</span>
           </div>
         </div>
-        <p class="text-xs text-slate-500 dark:text-slate-400">
+        <p class="text-xs text-slate-500 dark:text-slate-400" data-i18n="autoSaveNotice">
           Progress saves automatically in your browser.
         </p>
       </div>
@@ -455,6 +568,7 @@
         id="clear-filter-btn"
         type="button"
         class="font-bold underline hover:no-underline cursor-pointer shrink-0"
+        data-i18n="showAllBtn"
       >
         Show All 18 Nodes
       </button>
@@ -473,6 +587,7 @@
         id="empty-reset-filter-btn"
         type="button"
         class="mt-4 px-4 py-2 text-xs font-bold rounded-lg bg-slate-900 dark:bg-amber-300 text-white dark:text-slate-900 cursor-pointer"
+        data-i18n="returnFullRoadmap"
       >
         Return to Full Roadmap
       </button>
@@ -539,7 +654,7 @@
     <div class="flex-1 overflow-y-auto px-5 py-5 space-y-5">
       <!-- 1. Reference Source Tags -->
       <div>
-        <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+        <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2" data-i18n="drawerRefSource">
           Reference Source
         </h3>
         <div id="drawer-sources" class="flex flex-wrap gap-2"></div>
@@ -548,7 +663,7 @@
       <!-- 2. Plain-English Explanation -->
       <div class="p-4 rounded-xl bg-amber-50/70 dark:bg-slate-800/70 border border-amber-200 dark:border-slate-700">
         <h3 class="text-xs font-extrabold uppercase tracking-wider text-amber-900 dark:text-amber-300 mb-1.5 flex items-center gap-1.5">
-          <span>💡</span> Plain-English Explanation
+          <span>💡</span> <span data-i18n="drawerPlainExplain">Plain-English Explanation</span>
         </h3>
         <p id="drawer-explanation" class="text-sm leading-relaxed text-slate-800 dark:text-slate-200"></p>
         <div id="drawer-jargon-tip" class="hidden mt-3 pt-2.5 border-t border-amber-200/80 dark:border-slate-700 text-xs text-slate-700 dark:text-slate-300"></div>
@@ -557,7 +672,7 @@
       <!-- 3. Exact UI Click Path or Keyboard Shortcut -->
       <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
         <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-800 dark:text-slate-200 mb-2 flex items-center gap-1.5">
-          <span>⌨️</span> Exact Click Path &amp; Shortcuts
+          <span>⌨️</span> <span data-i18n="drawerShortcuts">Exact Click Path &amp; Shortcuts</span>
         </h3>
         <div id="drawer-shortcut-steps" class="space-y-2 text-sm text-slate-700 dark:text-slate-300"></div>
       </div>
@@ -565,14 +680,14 @@
       <!-- 4. Beginner Hands-On Try-It Exercise -->
       <div class="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800">
         <h3 class="text-xs font-extrabold uppercase tracking-wider text-indigo-900 dark:text-indigo-300 mb-1.5 flex items-center gap-1.5">
-          <span>🛠️</span> Quick Try-It Step
+          <span>🛠️</span> <span data-i18n="drawerTryIt">Quick Try-It Step</span>
         </h3>
         <p id="drawer-try-it" class="text-sm leading-relaxed text-indigo-950 dark:text-indigo-100"></p>
       </div>
 
       <!-- 5. Status Buttons (Mark as Done / In Progress / ? False Info / Reset) -->
       <div>
-        <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+        <h3 class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2" data-i18n="drawerUpdateProgress">
           Update Your Progress
         </h3>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -581,14 +696,14 @@
             type="button"
             class="px-2.5 py-2.5 rounded-lg text-xs font-bold border-2 border-green-700 bg-green-600 hover:bg-green-700 text-white transition cursor-pointer flex items-center justify-center gap-1"
           >
-            <span>✓</span> Mark Done
+            <span>✓</span> <span data-i18n="btnMarkDone">Mark Done</span>
           </button>
           <button
             id="btn-mark-progress"
             type="button"
             class="px-2.5 py-2.5 rounded-lg text-xs font-bold border-2 border-sky-600 bg-sky-100 hover:bg-sky-200 text-sky-900 dark:bg-sky-900/50 dark:hover:bg-sky-900 dark:text-sky-100 transition cursor-pointer flex items-center justify-center gap-1"
           >
-            <span>◔</span> In Progress
+            <span>◔</span> <span data-i18n="btnInProgress">In Progress</span>
           </button>
           <button
             id="btn-mark-question"
@@ -596,17 +711,17 @@
             title="Flag false info or something that needs checking further (counts as 0.5 completed work)"
             class="px-2.5 py-2.5 rounded-lg text-xs font-bold border-2 border-orange-600 bg-orange-100 hover:bg-orange-200 text-orange-950 dark:bg-orange-950/60 dark:hover:bg-orange-900 dark:text-orange-100 transition cursor-pointer flex items-center justify-center gap-1"
           >
-            <span>?</span> Check (0.5x)
+            <span>?</span> <span data-i18n="btnCheckHalf">Check (0.5x)</span>
           </button>
           <button
             id="btn-mark-reset"
             type="button"
             class="px-2.5 py-2.5 rounded-lg text-xs font-bold border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition cursor-pointer flex items-center justify-center gap-1"
           >
-            <span>↺</span> Reset
+            <span>↺</span> <span data-i18n="btnReset">Reset</span>
           </button>
         </div>
-        <p class="mt-2 text-[11px] text-slate-500 dark:text-slate-400">
+        <p class="mt-2 text-[11px] text-slate-500 dark:text-slate-400" data-i18n-html="statusTip">
           Tip: <strong>? Check (0.5x)</strong> marks false/outdated info or steps to verify further and counts as half (0.5) of a completed topic.
         </p>
       </div>
@@ -614,16 +729,17 @@
       <!-- 6. Personal Study Notes (Automatically saved to browser localStorage) -->
       <div>
         <div class="flex items-center justify-between mb-1.5">
-          <label for="drawer-notes" class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+          <label for="drawer-notes" class="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400" data-i18n="drawerNotesLabel">
             Your Personal Notes
           </label>
-          <span id="notes-save-status" class="text-[11px] font-medium text-emerald-600 dark:text-emerald-400 opacity-0 transition-opacity">
+          <span id="notes-save-status" class="text-[11px] font-medium text-emerald-600 dark:text-emerald-400 opacity-0 transition-opacity" data-i18n="notesSaved">
             Saved automatically
           </span>
         </div>
         <textarea
           id="drawer-notes"
           rows="4"
+          data-i18n-placeholder="notesPlaceholder"
           placeholder="Write down what you tried, questions to ask the agent, or helpful reminders..."
           class="w-full rounded-xl p-3 text-sm bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         ></textarea>
@@ -636,6 +752,7 @@
         id="drawer-prev-btn"
         type="button"
         class="px-3 py-1.5 text-xs font-bold rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition cursor-pointer"
+        data-i18n="prevNodeBtn"
       >
         ← Previous Node
       </button>
@@ -643,6 +760,7 @@
         id="drawer-next-btn"
         type="button"
         class="px-3 py-1.5 text-xs font-bold rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-40 disabled:cursor-not-allowed transition cursor-pointer"
+        data-i18n="nextNodeBtn"
       >
         Next Node →
       </button>

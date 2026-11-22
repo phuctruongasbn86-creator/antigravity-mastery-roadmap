@@ -15,6 +15,8 @@ Because this project uses pure HTML, Tailwind CSS (via CDN), and Vanilla JavaScr
 
 ## Key Features
 
+- **Quick Antigravity Overview Card:** Collapsible beginner intro at the top of the page explaining what Google Antigravity is, its 4 surfaces (**Antigravity 2.0**, **Antigravity IDE**, **Antigravity CLI `agy`**, and **SDK & Extensions**), and how a task flows.
+- **English / Vietnamese (`EN` ↔ `VI`) Translation Toggle:** Switch the entire interface, Overview card, Stage headers, and all 18 node guides between English and Vietnamese with one click (saved automatically in `localStorage`).
 - **`roadmap.sh`-Style Interactive Flowchart:**
   - **Yellow / Amber Nodes:** Core Must-Learn Topics along the main vertical spine.
   - **Purple / Blue Nodes:** Hands-On Practice Tasks & Sub-Topics branching off the spine with dashed connectors.

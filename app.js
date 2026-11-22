@@ -488,6 +488,566 @@ const ROADMAP_STAGES = [
    -------------------------------------------------------------------------- */
 const STORAGE_KEY = 'agy_roadmap_state_v1';
 const THEME_KEY = 'agy_roadmap_theme';
+const OVERVIEW_KEY = 'agy_roadmap_overview_collapsed';
+const LANG_KEY = 'agy_roadmap_lang';
+
+/* --------------------------------------------------------------------------
+   SECTION 2A: ENGLISH & VIETNAMESE TRANSLATION DICTIONARIES (I18N)
+   Holds all page labels, buttons, stage headings, and 18 node guides in
+   both English ("en") and beginner-friendly Vietnamese ("vi").
+   -------------------------------------------------------------------------- */
+const I18N_UI = {
+  en: {
+    pageTitle: 'Google Antigravity (agy) Mastery Roadmap — Beginner Guide',
+    compactTitle: '<code class="font-mono">agy</code> Mastery Roadmap',
+    mainTitle: 'Google Antigravity (<code class="font-mono text-sm px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600">agy</code>) Mastery Roadmap',
+    beginnerBadge: 'Beginner Path',
+    mainSubtitle: 'Click any box to open its guide, or click <strong>?</strong> on a box to flag info to double-check (counts as 0.5x progress).',
+    exportBtn: 'Export JSON',
+    importBtn: 'Import JSON',
+    darkMode: 'Dark Mode',
+    lightMode: 'Light Mode',
+    hideBar: 'Hide Bar',
+    expandBar: 'Expand Bar',
+    filterLabel: 'Filter:',
+    filterAll: 'All',
+    filterCodelab: 'Codelab',
+    filterHandbook: 'Handbook',
+    filterCompleted: 'Completed',
+    filterQuestion: '? Need Check',
+    overviewHeading: 'What is Google Antigravity (<code class="font-mono text-xs px-1 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600">agy</code>)? — Quick Overview',
+    overviewSubtitle: 'Start here if you are brand new to agentic AI coding.',
+    hideOverview: 'Hide Overview ▴',
+    showOverview: 'Show Overview ▾',
+    overviewIntro: '<strong>Google Antigravity</strong> is an AI-first development platform from Google DeepMind. Instead of typing every line of code yourself, you describe your goal in plain English and act like a project director while AI agents <strong>plan the steps, edit files, run commands, and visually test your app in a browser</strong>—pausing so you stay in control.',
+    surface1Title: '1. Antigravity 2.0 (App)',
+    surface1Desc: 'Standalone desktop "mission control" app to chat with agents, run parallel tasks, and inspect plans & changed files side by side.',
+    surface2Title: '2. Antigravity IDE',
+    surface2Desc: 'AI-powered VS Code-style code editor with smart <kbd>Tab</kbd> autocomplete, inline edits (<kbd>Ctrl</kbd>+<kbd>I</kbd>), and red/green code diffs.',
+    surface3Title: '3. Antigravity CLI (<code>agy</code>)',
+    surface3Desc: 'Lightweight terminal command-line assistant for fast keyboard-only chats, quick project edits, and slash commands.',
+    surface4Title: '4. SDK & Extensions',
+    surface4Desc: 'Connects Antigravity agents to other editors (VS Code, JetBrains, Zed) or lets developers automate agents using the Python SDK.',
+    flowLabel: 'How a task flows:',
+    flowStep1: '1. Share your goal',
+    flowStep2: '2. Review blueprint',
+    flowStep3: '3. Approve edits & commands',
+    flowStep4: '4. Verify in built-in browser',
+    legendCore: 'Core Must-Learn Topic (Main Spine)',
+    legendPractice: 'Hands-On Practice & Sub-Topics',
+    legendInProgress: 'In Progress',
+    legendQuestion: 'False Info / Need Check (0.5x)',
+    legendCompleted: 'Completed (1x)',
+    autoSaveNotice: 'Progress saves automatically in your browser.',
+    showAllBtn: 'Show All 18 Nodes',
+    returnFullRoadmap: 'Return to Full Roadmap',
+    progressText: '{done} / {total} Nodes Completed — {percent}%',
+    progressSubtext: '{inProgress} In Progress · {question} ? Need Check',
+    filterBannerText: 'Showing {matching} of {total} nodes matching "{label}".',
+    filterLabelCodelab: 'Google Codelab',
+    filterLabelHandbook: 'Hamodywe Handbook',
+    filterLabelCompleted: 'Completed',
+    filterLabelQuestion: '? Need Check (0.5x)',
+    emptyQuestionTitle: 'No nodes flagged with "?" yet!',
+    emptyQuestionDesc: 'Click the <strong>?</strong> button on any box (or inside its guide drawer) when you spot outdated info or want to double-check a step. It counts as 0.5x progress.',
+    emptyCompletedTitle: 'No completed nodes yet!',
+    emptyCompletedDesc: 'Click any yellow or purple box on the roadmap and press <strong>Mark Done</strong> to track your first win.',
+    badgeDone: '✓ Done',
+    badgeCheck: '? Check (0.5x)',
+    badgeWorking: 'Working',
+    badgeCore: 'Core',
+    badgePractice: 'Practice',
+    openGuide: 'Open Guide →',
+    quickQuestionTitle: 'Flag as ? (False Info / Need Check — counts as 0.5x)',
+    sourceCodelab: 'Google Codelab',
+    sourceBuildingCodelab: 'Building Codelab',
+    sourceHandbook: 'Hamodywe Handbook',
+    stageBadge: 'Stage {num}',
+    sourcePrefix: 'Source:',
+    stage6Badge: 'Stage 6: Autonomous Antigravity Mastery',
+    stage6TitleAllDone: 'Congratulations! You Mastered All 18 Antigravity Topics!',
+    stage6TitleDefault: 'Your Finish Line: Confident Agentic Building',
+    stage6QuestionNote: ' (includes {count} flagged with ? counting as 0.5 each)',
+    stage6Desc: 'Once you complete Stages 1 through 5 ({score} of {total} nodes done — {percent}%{note}), you can direct Google Antigravity to plan blueprints, write code, verify UI in the browser, and remember your personal rules across any new project.',
+    stage6Step1: '1. Goal Prompt',
+    stage6Step2: '2. Review Plan',
+    stage6Step3: '3. Approve Edits',
+    stage6Step4: '4. Verify in Browser',
+    drawerRefSource: 'Reference Source',
+    drawerPlainExplain: 'Plain-English Explanation',
+    drawerShortcuts: 'Exact Click Path & Shortcuts',
+    drawerTryIt: 'Quick Try-It Step',
+    drawerUpdateProgress: 'Update Your Progress',
+    btnMarkDone: 'Mark Done',
+    btnInProgress: 'In Progress',
+    btnCheckHalf: 'Check (0.5x)',
+    btnReset: 'Reset',
+    statusTip: 'Tip: <strong>? Check (0.5x)</strong> marks false/outdated info or steps to verify further and counts as half (0.5) of a completed topic.',
+    drawerNotesLabel: 'Your Personal Notes',
+    notesSaved: 'Saved automatically',
+    notesPlaceholder: 'Write down what you tried, questions to ask the agent, or helpful reminders...',
+    prevNodeBtn: '← Previous Node',
+    nextNodeBtn: 'Next Node →',
+    drawerTypeCore: 'Core Must-Learn Topic',
+    drawerTypePractice: 'Hands-On Practice Task',
+    statusDone: '✓ Completed (1x)',
+    statusQuestion: '? Need Check (0.5x)',
+    statusInProgress: '◔ In Progress',
+    statusNotStarted: 'Not Started',
+    jargonTipPrefix: 'Plain-English Tip:',
+    toastDone: 'Marked as Done & saved to browser storage!',
+    toastInProgress: 'Marked as In Progress!',
+    toastQuestion: 'Flagged with ? (counts as 0.5 completed work)!',
+    toastReset: 'Node status reset.',
+    toastQuickCleared: 'Cleared ? flag on {id}.',
+    toastQuickFlagged: 'Flagged {id} with ? (counts as 0.5 completed).',
+    toastExported: 'Progress exported to antigravity-roadmap-progress.json!',
+    toastInvalidBackup: 'Invalid backup file format.',
+    toastRestored: 'Backup restored successfully!',
+    toastJsonError: 'Could not read JSON file. Please pick a valid export file.',
+    toastLangSwitched: 'Switched language to English.',
+  },
+  vi: {
+    pageTitle: 'Lộ Trình Làm Chủ Google Antigravity (agy) — Dành Cho Người Mới',
+    compactTitle: 'Lộ Trình <code class="font-mono">agy</code>',
+    mainTitle: 'Lộ Trình Làm Chủ Google Antigravity (<code class="font-mono text-sm px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-600">agy</code>)',
+    beginnerBadge: 'Cho Người Mới',
+    mainSubtitle: 'Bấm vào từng ô để xem hướng dẫn dễ hiểu, hoặc bấm <strong>?</strong> trên ô để đánh dấu thông tin cần kiểm tra lại (tính 0.5 điểm).',
+    exportBtn: 'Xuất JSON',
+    importBtn: 'Nhập JSON',
+    darkMode: 'Chế Độ Tối',
+    lightMode: 'Chế Độ Sáng',
+    hideBar: 'Thu Gọn',
+    expandBar: 'Mở Rộng Thanh',
+    filterLabel: 'Lọc:',
+    filterAll: 'Tất cả',
+    filterCodelab: 'Codelab',
+    filterHandbook: 'Handbook',
+    filterCompleted: 'Đã xong',
+    filterQuestion: '? Cần xem lại',
+    overviewHeading: 'Google Antigravity (<code class="font-mono text-xs px-1 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-600">agy</code>) là gì? — Tổng Quan Nhanh',
+    overviewSubtitle: 'Bắt đầu từ đây nếu bạn mới tiếp cận lập trình cùng AI Agent.',
+    hideOverview: 'Ẩn Tổng Quan ▴',
+    showOverview: 'Hiện Tổng Quan ▾',
+    overviewIntro: '<strong>Google Antigravity</strong> là nền tảng lập trình AI của Google DeepMind. Thay vì tự gõ từng dòng code, bạn chỉ cần mô tả mục tiêu bằng ngôn ngữ tự nhiên như một người điều phối, còn AI Agent sẽ <strong>lập kế hoạch, sửa file, chạy lệnh và tự kiểm tra giao diện trên trình duyệt</strong>—và luôn dừng lại để bạn duyệt các thay đổi quan trọng.',
+    surface1Title: '1. Antigravity 2.0 (Ứng dụng)',
+    surface1Desc: 'Ứng dụng desktop độc lập đóng vai trò "trung tâm điều khiển" để chat với agent, chạy nhiều tác vụ song song và xem kế hoạch + file đã sửa cạnh nhau.',
+    surface2Title: '2. Antigravity IDE',
+    surface2Desc: 'Trình soạn thảo code dựa trên VS Code tích hợp gợi ý thông minh <kbd>Tab</kbd>, sửa nhanh tại chỗ (<kbd>Ctrl</kbd>+<kbd>I</kbd>) và xem thay đổi xanh/đỏ.',
+    surface3Title: '3. Antigravity CLI (<code>agy</code>)',
+    surface3Desc: 'Công cụ dòng lệnh gọn nhẹ trong Terminal giúp chat nhanh bằng bàn phím, chỉnh sửa dự án và gọi lệnh gạch chéo.',
+    surface4Title: '4. SDK & Tiện ích mở rộng',
+    surface4Desc: 'Kết nối agent Antigravity vào các trình soạn thảo khác (VS Code, JetBrains, Zed) hoặc tự động hóa agent bằng Python SDK.',
+    flowLabel: 'Quy trình một tác vụ:',
+    flowStep1: '1. Nêu mục tiêu',
+    flowStep2: '2. Duyệt bản kế hoạch',
+    flowStep3: '3. Duyệt sửa file & chạy lệnh',
+    flowStep4: '4. Kiểm tra trên trình duyệt',
+    legendCore: 'Kiến Thức Cốt Lõi (Trục chính)',
+    legendPractice: 'Thực Hành & Chủ Đề Nhánh',
+    legendInProgress: 'Đang học',
+    legendQuestion: 'Thông tin sai / Cần kiểm tra (0.5x)',
+    legendCompleted: 'Đã hoàn thành (1x)',
+    autoSaveNotice: 'Tiến độ tự động lưu trong trình duyệt của bạn.',
+    showAllBtn: 'Hiện tất cả 18 mục',
+    returnFullRoadmap: 'Quay lại Lộ trình đầy đủ',
+    progressText: 'Hoàn thành {done} / {total} mục — {percent}%',
+    progressSubtext: '{inProgress} Đang học · {question} ? Cần kiểm tra',
+    filterBannerText: 'Đang hiện {matching} / {total} mục khớp bộ lọc "{label}".',
+    filterLabelCodelab: 'Google Codelab',
+    filterLabelHandbook: 'Hamodywe Handbook',
+    filterLabelCompleted: 'Đã xong',
+    filterLabelQuestion: '? Cần kiểm tra (0.5x)',
+    emptyQuestionTitle: 'Chưa có mục nào được gắn dấu "?"!',
+    emptyQuestionDesc: 'Bấm nút <strong>?</strong> trên bất kỳ ô nào (hoặc trong khung hướng dẫn) khi bạn thấy thông tin cũ/sai hoặc cần kiểm tra thêm. Mục này được tính 0.5 điểm tiến độ.',
+    emptyCompletedTitle: 'Chưa có mục nào hoàn thành!',
+    emptyCompletedDesc: 'Bấm vào một ô màu vàng hoặc tím trên sơ đồ rồi chọn <strong>Đã Xong</strong> để ghi nhận bước đầu tiên.',
+    badgeDone: '✓ Đã xong',
+    badgeCheck: '? Kiểm tra (0.5x)',
+    badgeWorking: 'Đang học',
+    badgeCore: 'Cốt lõi',
+    badgePractice: 'Thực hành',
+    openGuide: 'Xem Hướng Dẫn →',
+    quickQuestionTitle: 'Đánh dấu ? (Thông tin sai / Cần kiểm tra — tính 0.5x)',
+    sourceCodelab: 'Google Codelab',
+    sourceBuildingCodelab: 'Codelab Xây Dựng',
+    sourceHandbook: 'Hamodywe Handbook',
+    stageBadge: 'Giai Đoạn {num}',
+    sourcePrefix: 'Nguồn:',
+    stage6Badge: 'Giai Đoạn 6: Làm Chủ Antigravity Tự Động',
+    stage6TitleAllDone: 'Chúc mừng! Bạn Đã Hoàn Thành Cả 18 Chủ Đề Antigravity!',
+    stage6TitleDefault: 'Đích Đến: Tự Tin Xây Dựng Với AI Agent',
+    stage6QuestionNote: ' (gồm {count} mục gắn dấu ? tính 0.5 mỗi mục)',
+    stage6Desc: 'Khi hoàn thành Giai đoạn 1 đến 5 ({score} / {total} mục — {percent}%{note}), bạn đã sẵn sàng điều phối Google Antigravity lập kế hoạch, viết code, kiểm tra giao diện trên trình duyệt và ghi nhớ quy tắc riêng cho mọi dự án.',
+    stage6Step1: '1. Nhập Mục Tiêu',
+    stage6Step2: '2. Duyệt Kế Hoạch',
+    stage6Step3: '3. Duyệt Chỉnh Sửa',
+    stage6Step4: '4. Kiểm Tra Trình Duyệt',
+    drawerRefSource: 'Nguồn Tham Khảo',
+    drawerPlainExplain: 'Giải Thích Dễ Hiểu',
+    drawerShortcuts: 'Thao Tác Click & Phím Tắt Chuẩn',
+    drawerTryIt: 'Bước Thực Hành Nhanh',
+    drawerUpdateProgress: 'Cập Nhật Tiến Độ',
+    btnMarkDone: 'Đã Xong',
+    btnInProgress: 'Đang Học',
+    btnCheckHalf: 'Kiểm Tra (0.5x)',
+    btnReset: 'Đặt Lại',
+    statusTip: 'Mẹo: <strong>? Kiểm tra (0.5x)</strong> dùng để đánh dấu thông tin sai/cũ hoặc bước cần kiểm chứng thêm và được tính nửa điểm (0.5) hoàn thành.',
+    drawerNotesLabel: 'Ghi Chú Cá Nhân',
+    notesSaved: 'Đã tự động lưu',
+    notesPlaceholder: 'Ghi lại những gì bạn đã thử, câu hỏi cần kiểm chứng hoặc mẹo hay...',
+    prevNodeBtn: '← Mục Trước',
+    nextNodeBtn: 'Mục Tiếp Theo →',
+    drawerTypeCore: 'Kiến Thức Cốt Lõi',
+    drawerTypePractice: 'Bài Tập Thực Hành',
+    statusDone: '✓ Hoàn thành (1x)',
+    statusQuestion: '? Cần kiểm tra (0.5x)',
+    statusInProgress: '◔ Đang học',
+    statusNotStarted: 'Chưa bắt đầu',
+    jargonTipPrefix: 'Mẹo Hiểu Thuật Ngữ:',
+    toastDone: 'Đã đánh dấu Xong và lưu vào trình duyệt!',
+    toastInProgress: 'Đã đánh dấu Đang học!',
+    toastQuestion: 'Đã gắn dấu ? (tính 0.5 phần hoàn thành)!',
+    toastReset: 'Đã đặt lại trạng thái mục này.',
+    toastQuickCleared: 'Đã bỏ dấu ? ở mục {id}.',
+    toastQuickFlagged: 'Đã gắn dấu ? ở mục {id} (tính 0.5 phần hoàn thành).',
+    toastExported: 'Đã xuất tiến độ ra file antigravity-roadmap-progress.json!',
+    toastInvalidBackup: 'Định dạng file sao lưu không hợp lệ.',
+    toastRestored: 'Đã khôi phục dữ liệu sao lưu thành công!',
+    toastJsonError: 'Không đọc được file JSON. Vui lòng chọn đúng file đã xuất.',
+    toastLangSwitched: 'Đã chuyển ngôn ngữ sang Tiếng Việt.',
+  },
+};
+
+const VI_CONTENT = {
+  stages: {
+    'stage-1': {
+      title: 'Giai Đoạn 1: Cài Đặt & Kiến Trúc',
+      subtitle: 'Cài đặt Antigravity, làm quen hai giao diện chính, kết nối thư mục dự án và bật khóa an toàn.',
+      sourceSummary: 'Getting Started Codelab & Handbook',
+    },
+    'stage-2': {
+      title: 'Giai Đoạn 2: Vòng Lặp Agentic 6 Bước',
+      subtitle: 'Điều phối AI như một người quản lý dự án qua 6 bước: Khởi tạo, Lập kế hoạch, Thực thi, Kiểm chứng, Tài liệu và Hoàn tất.',
+      sourceSummary: 'Hamodywe Handbook',
+    },
+    'stage-3': {
+      title: 'Giai Đoạn 3: Artifact & Duyệt Thủ Công (Human-in-the-Loop)',
+      subtitle: 'Làm chủ hoàn toàn bằng cách theo dõi danh sách việc, góp ý trực tiếp lên kế hoạch và soi thay đổi xanh/đỏ.',
+      sourceSummary: 'Codelab & Handbook',
+    },
+    'stage-4': {
+      title: 'Giai Đoạn 4: Trình Duyệt Tích Hợp & Tự Kiểm Chứng',
+      subtitle: 'Để Antigravity tự mở website trong trình duyệt riêng, tự bấm thử các nút và gửi ảnh chụp chứng minh.',
+      sourceSummary: 'Building with Antigravity Codelab & Handbook',
+    },
+    'stage-5': {
+      title: 'Giai Đoạn 5: Tùy Biến — Rules, Workflows & Skills',
+      subtitle: 'Dạy Antigravity nhớ quy tắc riêng, tạo lệnh gạch chéo tái sử dụng, gắn đúng file bằng @ và giữ ngữ cảnh sạch.',
+      sourceSummary: 'Codelab & Built-Not-Hired Guide',
+    },
+  },
+  nodes: {
+    '1.1': {
+      title: 'Cài Đặt & Hạn Mức Tài Khoản (Quota)',
+      shortSummary: 'Cài Antigravity 2.0 + Antigravity IDE và đăng nhập bằng tài khoản Google.',
+      explanation:
+        'Google Antigravity gồm ứng dụng điều khiển desktop (Antigravity 2.0) và trình soạn thảo code tích hợp AI (Antigravity IDE). Đăng nhập bằng tài khoản Google cá nhân giúp mở khóa hạn mức Google AI Pro—tức lượng lượt suy nghĩ và viết code mỗi ngày của AI.',
+      jargonTip:
+        'Quota (hạn mức) đơn giản là số lượt yêu cầu AI bạn có trong ngày. Chọn đúng chế độ và model sẽ giúp hạn mức dùng được lâu hơn.',
+      shortcuts: [
+        'Mở ứng dụng Antigravity hoặc IDE và bấm <strong>Sign in with Google</strong> (Đăng nhập với Google).',
+        'Hoàn tất đăng nhập trên trình duyệt để tài khoản và hạn mức tự động kết nối.',
+        'Cách mở nhanh qua Terminal (tùy chọn): mở cửa sổ lệnh và gõ <code>agy</code> để khởi động trợ lý dòng lệnh.',
+      ],
+      tryIt:
+        'Kiểm tra xem ảnh đại diện hoặc tên tài khoản Google của bạn đã hiện ở góc dưới hoặc mục Settings trước khi bắt đầu dự án đầu tiên.',
+    },
+    '1.2': {
+      title: 'Hai Giao Diện (Antigravity 2.0 và IDE)',
+      shortSummary: 'Agent Manager vs. Editor View — và vì sao Ctrl + E / Ctrl + L khác nhau trên agy 2.0.',
+      explanation:
+        'Các tài liệu Codelab cũ nhắc đến phím Ctrl + E (Agent Manager) và Ctrl + L (Chat) vì bản Antigravity 1.x gộp cả hai trong một cửa sổ editor. Ở Antigravity 2.0 (app desktop độc lập), toàn bộ cửa sổ chính LÀ Agent Manager & khung Chat rồi nên Ctrl + E và Ctrl + L không hoạt động ở đó. Trong khi đó, Antigravity IDE là cửa sổ viết code riêng để chỉnh sửa file trực tiếp.',
+      jargonTip:
+        'Vì sao phím tắt đôi khi không chạy: Antigravity 2.0 (app desktop) và Antigravity IDE (trình soạn thảo kiểu VS Code) là hai ứng dụng khác nhau, hoặc phím tắt Windows/tiện ích mở rộng có thể ghi đè.',
+      shortcuts: [
+        '<strong>Trên Antigravity 2.0 (App Desktop):</strong> Dùng <strong>Thanh bên trái</strong> (<em>New Conversation, Projects, Settings</em>) và các <strong>tab bảng phụ bên phải</strong> (<em>Artifacts, Files Changed, Terminals, Subagents</em>)—<code>Ctrl + E</code> / <code>Ctrl + L</code> không dùng ở đây.',
+        '<strong>Trên Antigravity IDE (Trình sửa code):</strong> Mở sửa nhanh tại chỗ bằng <kbd>Ctrl</kbd> + <kbd>I</kbd> (Mac: <kbd>Cmd</kbd> + <kbd>I</kbd>), bật/tắt khung chat bằng <kbd>Ctrl</kbd> + <kbd>L</kbd> (hoặc <kbd>Ctrl</kbd> + <kbd>E</kbd> ở bản 1.x), và mở Command Palette bằng <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>.',
+        '<strong>Kiểm tra hoặc đổi phím tắt trong IDE:</strong> Bấm <kbd>Ctrl</kbd> + <kbd>K</kbd> rồi <kbd>Ctrl</kbd> + <kbd>S</kbd> (hoặc vào <strong>Settings &rarr; Keyboard Shortcuts</strong>) để xem và chỉnh sửa file <code>keybindings.json</code>.',
+      ],
+      tryIt:
+        'Kiểm tra xem bạn đang mở app nào: ở Antigravity 2.0, hãy bấm thử các tab bên phải; ở Antigravity IDE, bôi đen một dòng code rồi bấm Ctrl + I hoặc mở Settings > Keyboard Shortcuts.',
+    },
+    '1.3': {
+      title: 'Workspace & Dự Án (Projects)',
+      shortSummary: 'Tạo một thư mục trên máy tính và liên kết vào mục Projects.',
+      explanation:
+        'Workspace (hay Project) thực chất chỉ là một thư mục bình thường trên máy tính nơi chứa toàn bộ file website hoặc ứng dụng của bạn. Việc liên kết thư mục giúp Antigravity biết chính xác phạm vi được phép đọc, tạo và sửa file an toàn.',
+      jargonTip:
+        'Workspace Root là thư mục gốc ngoài cùng của dự án. Mặc định Antigravity khóa quyền chỉnh sửa bên trong thư mục này để các file cá nhân khác trên máy không bị đụng tới.',
+      shortcuts: [
+        'Ở thanh bên trái, bấm <strong>Projects</strong> &rarr; <strong>Create New Project</strong>.',
+        'Hoặc trong Editor View, mở thư mục qua <strong>File &gt; Open Folder...</strong> (<kbd>Ctrl</kbd> + <kbd>K</kbd>, sau đó <kbd>Ctrl</kbd> + <kbd>O</kbd>).',
+      ],
+      tryIt:
+        'Tạo một thư mục trống trên máy tính (ví dụ "my-first-site") rồi mở nó trong Projects để AI có chỗ làm việc an toàn.',
+    },
+    '1.4': {
+      title: 'Khóa An Toàn & Quyền Thực Thi',
+      shortSummary: 'Chọn Request Review (Hỏi trước khi chạy) hoặc Autopilot cho kế hoạch và lệnh Terminal.',
+      explanation:
+        'Trước khi cho phép AI chạy lệnh trên máy tính, bạn là người quyết định mức độ giám sát. Chế độ Request Review sẽ dừng lại chờ bạn bấm duyệt trước khi chạy lệnh hoặc sửa code. Chế độ Autopilot cho phép AI tự chạy bên trong vùng an toàn Sandbox.',
+      jargonTip:
+        'Sandbox là một "vùng cách ly" bảo vệ cho Terminal—cho phép AI chạy thử lệnh kiểm tra dự án mà không làm hỏng hệ thống hay thư mục khác.',
+      shortcuts: [
+        'Mở cài đặt từ thanh bên trái &rarr; <strong>Settings</strong> (hoặc bấm <kbd>Ctrl</kbd> + <kbd>,</kbd>).',
+        'Đặt <strong>Artifact Review Policy</strong> thành <code>Request Review</code> khi đang học.',
+        'Đặt <strong>Terminal Execution Policy</strong> thành <code>Request Review</code> hoặc <code>Proceed in Sandbox</code> (tránh tự động hoàn toàn khi chưa quen).',
+      ],
+      tryIt:
+        'Mở Settings ngay bây giờ và kiểm tra xem Request Review đang bật chưa để AI luôn hỏi ý kiến trước khi chạy lệnh.',
+    },
+    '2.1': {
+      title: 'Khởi Tạo & Viết Prompt Mục Tiêu',
+      shortSummary: 'Viết yêu cầu theo mục tiêu rõ ràng thay vì tự gõ từng dòng code.',
+      explanation:
+        'Tài liệu Hamodywe Handbook hướng dẫn vòng lặp 6 bước: Khởi tạo, Lập kế hoạch, Thực thi, Kiểm chứng, Tài liệu và Hoàn tất. Ở Bước 1 (Khởi tạo), bạn mô tả mục tiêu cuối cùng bằng tiếng Việt hoặc tiếng Anh tự nhiên—trang cần trông ra sao, làm được gì và kiểm tra thế nào—thay vì lo từng dòng cú pháp.',
+      jargonTip:
+        'Prompting đơn giản là viết yêu cầu vào ô chat. Mục tiêu rõ ràng ("tạo nút chế độ tối và lưu lại trong trình duyệt") luôn hiệu quả hơn câu hỏi chung chung.',
+      shortcuts: [
+        'Bấm vào <strong>Ô nhập Chat chính</strong> (đã mở sẵn trên màn hình chính ở Antigravity 2.0; trong IDE bấm <kbd>Ctrl</kbd> + <kbd>L</kbd>).',
+        'Viết 1–3 câu rõ ràng mô tả sản phẩm mong muốn và tiêu chí hoàn thành, rồi nhấn <kbd>Enter</kbd>.',
+      ],
+      tryIt:
+        'Thử viết một câu yêu cầu gồm 3 phần: cần tạo tính năng gì, giao diện trông thế nào, và cách kiểm tra xem nó có chạy đúng không.',
+    },
+    '2.2': {
+      title: 'Hai Chế Độ Vận Hành (Planning vs. Fast)',
+      shortSummary: 'Chọn Planning Mode (lập bản vẽ trước) hay Fast Mode (sửa nhỏ ngay lập tức).',
+      explanation:
+        'Planning Mode yêu cầu agent dừng lại đọc dự án và viết bản kế hoạch để bạn duyệt trước khi chạm vào file—rất hợp cho tính năng mới hoặc sửa nhiều file. Fast Mode bỏ qua bước lập kế hoạch và sửa ngay lập tức—phù hợp khi sửa lỗi chính tả hoặc đổi màu một nút.',
+      jargonTip:
+        'Hãy hình dung Planning Mode giống như yêu cầu kiến trúc sư vẽ bản thiết kế nhà trước, còn Fast Mode giống như nhờ thợ sơn lại một bức tường.',
+      shortcuts: [
+        'Nhìn thanh công cụ dưới <strong>Ô nhập Chat</strong> và bấm vào nút <strong>Chọn Chế Độ</strong> (<code>Planning</code> hoặc <code>Fast</code>).',
+        'Bạn cũng có thể gõ <code>/plan</code> trong khung chat bất cứ lúc nào muốn agent phác thảo kế hoạch trước.',
+      ],
+      tryIt:
+        'Thử chuyển qua lại giữa Planning và Fast ở thanh chat để quen chọn Planning cho việc lớn và Fast cho chỉnh sửa nhanh.',
+    },
+    '2.3': {
+      title: 'Chọn Model & Orchestrator (Argon)',
+      shortSummary: 'Chọn Orchestrator (Argon) để Kiến trúc sư lập kế hoạch và Thợ xây (Hydrogen) viết code.',
+      explanation:
+        'Chọn Orchestrator (Argon) sẽ tự động kết hợp hai bộ não AI: một model "Kiến trúc sư" suy nghĩ kỹ lưỡng để thiết kế kế hoạch và lường rủi ro, sau đó giao cho model "Thợ xây" tốc độ cao (Hydrogen) viết code nhanh gọn. Cách này cho chất lượng cao hơn mà vẫn tiết kiệm hạn mức.',
+      jargonTip:
+        'Orchestrator nghĩa là model điều phối trung tâm—lo việc vạch chiến lược rồi phân việc gõ code nặng cho model phụ nhanh hơn.',
+      shortcuts: [
+        'Ở phía dưới <strong>Ô nhập Chat</strong>, bấm vào menu <strong>Chọn Model</strong>.',
+        'Chọn <strong>Orchestrator (Argon)</strong> (cũng có thể chỉnh tại <strong>Settings &gt; Model Selection</strong>).',
+      ],
+      tryIt:
+        'Kiểm tra menu chọn Model hiện tại và chuyển sang Orchestrator (Argon) trước khi bắt đầu một tính năng nhiều bước.',
+    },
+    '2.4': {
+      title: 'Thực Thi & Theo Dõi Log Terminal',
+      shortSummary: 'Quan sát chỉnh sửa file theo thời gian thực và duyệt lệnh Terminal an toàn.',
+      explanation:
+        'Ở Bước 3 (Thực thi), agent sẽ tạo file và chạy các lệnh trong Terminal (ví dụ bật một máy chủ web cục bộ để bạn xem thử trang web). Từng bước đều hiện nhật ký trực tiếp và dừng xin phép khi cần chạy lệnh quan trọng.',
+      jargonTip:
+        'Terminal là cửa sổ dòng lệnh chạy ngầm cho các công cụ—ví dụ như bật một server nhỏ trên máy tính để mở trang web của bạn.',
+      shortcuts: [
+        'Mở <strong>Bảng Phụ Bên Phải (Auxiliary Pane)</strong> &rarr; chọn tab <strong>Terminals</strong> hoặc <strong>Background Tasks</strong>.',
+        'Khi một thẻ lệnh hiện nút xin phép, đọc tóm tắt lệnh rồi bấm <strong>Approve / Run</strong> (hoặc <strong>Deny</strong> nếu chưa chắc chắn).',
+      ],
+      tryIt:
+        'Quan sát các bước hiển thị trong chat khi AI chỉnh file, sau đó mở tab Terminals để xem chính xác các lệnh nó đã chạy.',
+    },
+    '3.1': {
+      title: 'Artifact Danh Sách Công Việc (Task List)',
+      shortSummary: 'Theo dõi các ô tick cập nhật trực tiếp khi AI chia nhỏ mục tiêu lớn.',
+      explanation:
+        'Artifact là một tài liệu dễ đọc do AI tạo ra để mọi việc không bị mù mờ. Task List (task.md) chia mục tiêu lớn của bạn thành từng bước nhỏ đánh số rõ ràng và tự động tick hoàn thành theo thời gian thực.',
+      jargonTip:
+        'Human-in-the-Loop nghĩa là con người luôn nắm quyền kiểm soát—bạn nhìn thấy từng bước và phê duyệt các mốc quan trọng thay vì phó mặc hoàn toàn.',
+      shortcuts: [
+        'Trong <strong>Bảng Phụ Bên Phải</strong>, bấm tab <strong>Artifacts</strong> &rarr; mở file <code>task.md</code>.',
+        'Hoặc bấm trực tiếp vào thẻ <strong>Task List</strong> ngay trong luồng chat.',
+      ],
+      tryIt:
+        'Yêu cầu agent lập kế hoạch một thay đổi gồm 3 bước và xem file task.md chuyển trạng thái từng ô từ [ ] sang [/] rồi [x].',
+    },
+    '3.2': {
+      title: 'Kế Hoạch Thực Hiện & Bình Luận Trực Tiếp',
+      shortSummary: 'Bôi đen văn bản trong implementation_plan.md để góp ý kiểu Google Docs trước khi chạy.',
+      explanation:
+        'Trước khi sửa file ở chế độ Planning Mode, agent sẽ viết file implementation_plan.md mô tả nó định làm gì. Giống hệt bình luận trên Google Docs, bạn có thể bôi đen bất kỳ câu nào, ghi góp ý (ví dụ: "Đổi nút màu đỏ sang xanh dịu") để nắn hướng agent trước khi nó viết code.',
+      jargonTip:
+        'Markdown (.md) chỉ là định dạng văn bản thuần sử dụng các ký hiệu đơn giản như # cho tiêu đề và * cho gạch đầu dòng.',
+      shortcuts: [
+        'Bấm vào thẻ <code>implementation_plan.md</code> trong khung chat hoặc mục <strong>Artifacts</strong>.',
+        'Kéo chuột bôi đen một dòng &rarr; bấm nút <strong>Add Comment</strong> hiện lên &rarr; nhập yêu cầu chỉnh sửa.',
+        'Bấm <strong>Proceed</strong> khi bạn đã ưng ý với kế hoạch.',
+      ],
+      tryIt:
+        'Lần tới khi thấy Implementation Plan, hãy thử bôi đen một gạch đầu dòng và thêm một bình luận góp ý trước khi bấm Proceed.',
+    },
+    '3.3': {
+      title: 'Soi Thay Đổi Code (Code Diffs Xanh/Đỏ)',
+      shortSummary: 'Kiểm tra dòng bị xóa (đỏ) và dòng thêm mới (xanh) trước khi bấm Accept.',
+      explanation:
+        'Code Diff (viết tắt của "difference" — sự khác biệt) đặt phiên bản cũ và mới cạnh nhau hoặc lồng vào nhau. Những dòng tô màu đỏ là phần bị xóa, còn màu xanh lá là phần được thêm mới—giúp bạn kiểm tra kỹ mọi chỉnh sửa trước khi giữ lại.',
+      jargonTip:
+        'Diff đơn giản nghĩa là "điểm khác biệt"—chỉ tô màu những dòng có thay đổi để bạn không phải đọc lại toàn bộ file từ đầu đến cuối.',
+      shortcuts: [
+        'Mở <strong>Bảng Phụ Bên Phải</strong> &rarr; bấm tab <strong>Files Changed</strong> &rarr; chọn tên file bất kỳ.',
+        'Xem các dòng xanh/đỏ rồi bấm <strong>Accept</strong> (giữ lại) hoặc <strong>Reject</strong> (hoàn tác) trên thanh duyệt.',
+      ],
+      tryIt:
+        'Sau khi AI sửa xong một file, hãy bấm mở file đó trong mục Files Changed để quan sát các dòng thêm (+) màu xanh và xóa (-) màu đỏ.',
+    },
+    '3.4': {
+      title: 'Artifact Tổng Kết (Walkthrough)',
+      shortSummary: 'Đọc báo cáo tóm tắt cuối cùng được tạo sau khi hoàn thành tác vụ.',
+      explanation:
+        'Sau khi agent hoàn tất việc viết code và chạy thử, nó sẽ tạo bản báo cáo cuối cùng tên là walkthrough.md. Tài liệu này tóm tắt những gì đã thay đổi, liệt kê các file đã sửa và đính kèm kết quả kiểm tra hoặc ảnh chụp màn hình chứng minh mọi thứ chạy tốt.',
+      jargonTip:
+        'Hãy coi Walkthrough như biên bản bàn giao cuối cùng của AI để báo cáo kết quả và bằng chứng kiểm thử cho bạn.',
+      shortcuts: [
+        'Bấm thẻ <strong>Walkthrough</strong> ở cuối câu trả lời hoàn tất, hoặc mở <strong>Artifacts &gt; walkthrough.md</strong>.',
+      ],
+      tryIt:
+        'Đọc thẻ Walkthrough sau mỗi lần AI xây xong tính năng để chắc chắn mọi yêu cầu của bạn đều đã được kiểm tra.',
+    },
+    '4.1': {
+      title: 'Agent Trình Duyệt (Browser Subagent)',
+      shortSummary: 'Antigravity tự mở một trình duyệt Chrome tách biệt để bấm thử và kiểm tra ứng dụng web.',
+      explanation:
+        'Thay vì bắt bạn tự bấm từng nút để tìm lỗi, Antigravity gọi một trợ lý chuyên biệt gọi là Browser Subagent. Nó tự mở một cửa sổ Chrome sạch và tách biệt, truy cập trang web, bấm các nút, nhập form và tự kiểm tra lỗi giao diện lẫn lỗi chạy script.',
+      jargonTip:
+        'Subagent là một trợ lý nhỏ được agent chính gọi ra để lo một việc chuyên biệt—ở đây là đóng vai người dùng thật để kiểm thử trang web.',
+      shortcuts: [
+        'Gõ <code>/browser</code> trong chat hoặc nhắn: <em>"Mở trang web trong trình duyệt tích hợp và bấm thử các nút."</em>',
+        'Theo dõi hoạt động trực tiếp tại <strong>Bảng Phụ Bên Phải &gt; Subagents</strong>.',
+      ],
+      tryIt:
+        'Yêu cầu Antigravity mở website của bạn trong trình duyệt tích hợp và kiểm tra xem các nút bấm cùng việc tải lại trang có hoạt động đúng không.',
+    },
+    '4.2': {
+      title: 'Bằng Chứng Kiểm Chứng Trực Quan',
+      shortSummary: 'Xem ảnh chụp màn hình và video ghi lại quá trình trình duyệt bấm thử nút và biểu mẫu.',
+      explanation:
+        'Trong lúc kiểm thử trang web, Browser Subagent sẽ tự động chụp ảnh màn hình và quay lại thao tác thực tế. Các hình ảnh này được gắn trực tiếp vào khung chat và báo cáo Walkthrough để bạn tận mắt kiểm chứng bố cục hiển thị.',
+      jargonTip:
+        'Visual Verification (kiểm chứng trực quan) nghĩa là chứng minh website chạy đúng bằng ảnh chụp thực tế từ trình duyệt chứ không chỉ đoán qua code.',
+      shortcuts: [
+        'Mở <strong>Bảng Phụ Bên Phải &gt; Subagents</strong> hoặc <strong>Artifacts &gt; walkthrough.md</strong>.',
+        'Bấm vào ảnh chụp màn hình đính kèm để phóng to và kiểm tra toàn bộ giao diện trình duyệt.',
+      ],
+      tryIt:
+        'Xem các ảnh chụp sinh ra ở cuối lượt kiểm thử trình duyệt để soi màu nút, khoảng cách và bố cục hiển thị.',
+    },
+    '5.1': {
+      title: 'Quy Tắc Dự Án (.agents/rules/)',
+      shortSummary: 'Tạo các quy tắc cố định cho dự án (ví dụ: "Luôn giải thích bằng ngôn ngữ dễ hiểu cho người mới").',
+      explanation:
+        'Workspace Rules là các file hướng dẫn cố định nằm trong thư mục .agents/rules/ của dự án (giống như file beginner-guide.md ngay trong dự án này!). Antigravity tự động đọc các quy tắc này trước mỗi lần trả lời nên bạn không bao giờ phải nhắc lại sở thích của mình.',
+      jargonTip:
+        'Hãy coi Rules như những tờ giấy ghi chú dán ngay trên bàn làm việc của AI—nó luôn đọc trước khi viết code hay trả lời bạn.',
+      shortcuts: [
+        'Thanh bên trái &rarr; bấm <strong>Skills &amp; Customizations &gt; Rules</strong>.',
+        'Hoặc tự tạo bất kỳ file <code>.md</code> nào bên trong thư mục <code>.agents/rules/</code> của dự án.',
+      ],
+      tryIt:
+        'Mở file .agents/rules/beginner-guide.md trong dự án này để xem cách viết một bộ quy tắc thân thiện cho người mới.',
+    },
+    '5.2': {
+      title: 'Lệnh Quy Trình Gạch Chéo (.agents/workflows/)',
+      shortSummary: 'Lưu các chuỗi hướng dẫn lặp đi lặp lại để gọi nhanh bằng lệnh bắt đầu bằng dấu /.',
+      explanation:
+        'Khi thấy mình cứ phải nhờ AI làm đi làm lại cùng một danh sách việc (như "kiểm tra link, chạy test và viết tóm tắt"), bạn có thể lưu các bước đó thành file Markdown trong .agents/workflows/ (hoặc tạo Skill) để kích hoạt toàn bộ quy trình chỉ bằng một lệnh gạch chéo.',
+      jargonTip:
+        'Slash Command (lệnh gạch chéo) là phím tắt bắt đầu bằng dấu / (như /plan hoặc /browser) giúp gọi cả một quy trình đã lưu chỉ trong một lần gõ.',
+      shortcuts: [
+        'Lưu file hướng dẫn vào <code>.agents/workflows/ten-lenh.md</code> (hoặc tạo Skill tại <code>.agents/skills/</code>).',
+        'Trong <strong>Ô nhập Chat</strong>, gõ <code>/</code> để mở danh sách gợi ý và chọn lệnh bạn đã lưu.',
+      ],
+      tryIt:
+        'Gõ dấu / trong ô chat để xem các lệnh có sẵn như /plan, /browser và /learn.',
+    },
+    '5.3': {
+      title: 'Gắn File Bằng @ & Làm Mới Ngữ Cảnh',
+      shortSummary: 'Chỉ đích danh file bằng @tenfile và bấm + New Chat giữa các tính năng để tránh loãng ngữ cảnh.',
+      explanation:
+        'Gõ @ kèm tên file sẽ trỏ thẳng AI đến đúng file bạn muốn sửa để không lãng phí hạn mức đi tìm lòng vòng. Còn bấm + New Chat mỗi khi chuyển sang tính năng mới sẽ dọn sạch mẩu hội thoại cũ ("context rot") giúp AI luôn tỉnh táo và chính xác.',
+      jargonTip:
+        'Context Rot (loãng ngữ cảnh) xảy ra khi một đoạn chat quá dài và chứa đầy ý tưởng cũ bỏ đi, làm AI chậm hoặc nhầm lẫn—mở New Chat giống như dọn sạch bàn làm việc.',
+      shortcuts: [
+        'Trỏ đúng một file cụ thể: gõ <code>@</code> trong <strong>Ô nhập Chat</strong> &rarr; chọn file (như <code>@ROADMAP_SPEC.md</code>).',
+        'Mở hội thoại mới giữa các nhiệm vụ tách biệt: Thanh bên trái &rarr; bấm <strong>+ New Conversation</strong> (hoặc nhấn <kbd>Ctrl</kbd> + <kbd>N</kbd>).',
+      ],
+      tryIt:
+        'Lần tới khi làm xong một tính năng, hãy bấm + New Conversation rồi đính kèm đúng file cần dùng tiếp theo bằng @tenfile.',
+    },
+    '5.4': {
+      title: 'Kho Kiến Thức Lưu Trữ Dài Hạn (Knowledge)',
+      shortSummary: 'Lưu lại cấu trúc và bài học dự án qua nhiều phiên để các đoạn chat sau tự nhớ.',
+      explanation:
+        'Ngay cả khi bạn mở chat mới để giữ bàn làm việc gọn gàng, Antigravity vẫn có thể lưu những kinh nghiệm thiết lập, mẹo hay và quy ước dự án vào thư mục Knowledge cục bộ. Các cuộc trò chuyện sau đó có thể tận dụng lại trí nhớ dài hạn này.',
+      jargonTip:
+        'Persistent (bền vững) đơn giản nghĩa là "còn giữ lại sau khi đóng"—khác với trí nhớ tạm trong một tab chat, Knowledge Items được lưu hẳn trên ổ đĩa.',
+      shortcuts: [
+        'Gõ <code>/learn</code> trong khung chat sau khi giải quyết xong một cấu hình khó để Antigravity ghi nhớ cho lần sau.',
+        'Xem lại các mẫu kiến thức đã lưu tại <code>.antigravity/knowledge/</code> hoặc trong <strong>Thanh bên trái &gt; Skills &amp; Customizations</strong>.',
+      ],
+      tryIt:
+        'Sau khi hoàn thành một tùy biến khó, thử gõ /learn trong chat để biến bài học đó thành quy tắc tái sử dụng.',
+    },
+  },
+};
+
+/* Helper to read saved language ('en' or 'vi') */
+let currentLang = localStorage.getItem(LANG_KEY) === 'vi' ? 'vi' : 'en';
+
+/* Look up a UI string and replace any {placeholder} tokens */
+function t(key, vars = {}) {
+  const dict = I18N_UI[currentLang] || I18N_UI.en;
+  let text = dict[key] !== undefined ? dict[key] : (I18N_UI.en[key] || key);
+  Object.keys(vars).forEach((varKey) => {
+    text = text.replace(new RegExp(`\\{${varKey}\\}`, 'g'), String(vars[varKey]));
+  });
+  return text;
+}
+
+/* Return translated stage metadata (falling back cleanly to English) */
+function getStageText(stage) {
+  if (currentLang === 'vi' && VI_CONTENT.stages[stage.id]) {
+    return {
+      ...stage,
+      ...VI_CONTENT.stages[stage.id],
+    };
+  }
+  return stage;
+}
+
+/* Return translated node data (falling back cleanly to English) */
+function getNodeText(node) {
+  if (currentLang === 'vi' && VI_CONTENT.nodes[node.id]) {
+    return {
+      ...node,
+      ...VI_CONTENT.nodes[node.id],
+    };
+  }
+  return node;
+}
+
+/* Translate a source link badge label cleanly */
+function translateSourceLabel(label) {
+  if (label === 'Google Codelab') return t('sourceCodelab');
+  if (label === 'Building Codelab') return t('sourceBuildingCodelab');
+  if (label === 'Hamodywe Handbook') return t('sourceHandbook');
+  return label;
+}
 
 /* Flatten all 18 nodes in display order so Next/Previous drawer buttons work smoothly */
 const ALL_NODES = [];
@@ -568,6 +1128,10 @@ const headerExpandBtn = document.getElementById('header-expand-btn');
 const compactProgressText = document.getElementById('compact-progress-text');
 const compactProgressBarFill = document.getElementById('compact-progress-bar-fill');
 
+const overviewToggleBtn = document.getElementById('overview-toggle-btn');
+const overviewToggleLabel = document.getElementById('overview-toggle-label');
+const overviewBody = document.getElementById('overview-body');
+
 const roadmapContainer = document.getElementById('roadmap-container');
 const progressText = document.getElementById('progress-text');
 const inProgressCountEl = document.getElementById('in-progress-count');
@@ -587,6 +1151,11 @@ const emptyFilterState = document.getElementById('empty-filter-state');
 const emptyFilterTitle = document.getElementById('empty-filter-title');
 const emptyFilterDesc = document.getElementById('empty-filter-desc');
 const emptyResetFilterBtn = document.getElementById('empty-reset-filter-btn');
+
+const langToggleBtn = document.getElementById('lang-toggle-btn');
+const langToggleLabel = document.getElementById('lang-toggle-label');
+const compactLangToggleBtn = document.getElementById('compact-lang-toggle-btn');
+const compactLangLabel = document.getElementById('compact-lang-label');
 
 const themeToggleBtn = document.getElementById('theme-toggle');
 const themeIconSun = document.getElementById('theme-icon-sun');
@@ -672,7 +1241,7 @@ function applyTheme(theme) {
   document.documentElement.classList.toggle('dark', isDark);
   themeIconSun.classList.toggle('hidden', !isDark);
   themeIconMoon.classList.toggle('hidden', isDark);
-  themeLabel.textContent = isDark ? 'Light Mode' : 'Dark Mode';
+  themeLabel.textContent = isDark ? t('lightMode') : t('darkMode');
   localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
 }
 
@@ -730,8 +1299,15 @@ function updateStatsAndFilters() {
   const percent = total > 0 ? Math.round((effectiveDone / total) * 100) : 0;
 
   /* Update both the full header meter and the minimized compact bar meter */
-  progressText.textContent = `${formattedDone} / ${total} Nodes Completed — ${percent}%`;
-  inProgressCountEl.textContent = `${inProgressCount} In Progress · ${questionCount} ? Need Check`;
+  progressText.textContent = t('progressText', {
+    done: formattedDone,
+    total,
+    percent,
+  });
+  inProgressCountEl.textContent = t('progressSubtext', {
+    inProgress: inProgressCount,
+    question: questionCount,
+  });
   progressBarFill.style.width = `${percent}%`;
   compactProgressText.textContent = `${formattedDone} / ${total} (${percent}%)`;
   compactProgressBarFill.style.width = `${percent}%`;
@@ -761,25 +1337,27 @@ function updateStatsAndFilters() {
     filterBanner.classList.add('hidden');
   } else {
     const labelMap = {
-      codelab: 'Google Codelab',
-      handbook: 'Hamodywe Handbook',
-      completed: 'Completed',
-      question: '? Need Check (0.5x)',
+      codelab: t('filterLabelCodelab'),
+      handbook: t('filterLabelHandbook'),
+      completed: t('filterLabelCompleted'),
+      question: t('filterLabelQuestion'),
     };
-    filterBannerText.textContent = `Showing ${matchingCount} of ${total} nodes matching "${labelMap[activeFilter]}".`;
+    filterBannerText.textContent = t('filterBannerText', {
+      matching: matchingCount,
+      total,
+      label: labelMap[activeFilter],
+    });
     filterBanner.classList.remove('hidden');
   }
 
   /* Show friendly empty message if Completed or ? filter has 0 matching nodes */
   if (matchingCount === 0) {
     if (activeFilter === 'question') {
-      emptyFilterTitle.textContent = 'No nodes flagged with "?" yet!';
-      emptyFilterDesc.innerHTML =
-        'Click the <strong>?</strong> button on any box (or inside its guide drawer) when you spot outdated info or want to double-check a step. It counts as 0.5x progress.';
+      emptyFilterTitle.textContent = t('emptyQuestionTitle');
+      emptyFilterDesc.innerHTML = t('emptyQuestionDesc');
     } else {
-      emptyFilterTitle.textContent = 'No completed nodes yet!';
-      emptyFilterDesc.innerHTML =
-        'Click any yellow or purple box on the roadmap and press <strong>Mark Done</strong> to track your first win.';
+      emptyFilterTitle.textContent = t('emptyCompletedTitle');
+      emptyFilterDesc.innerHTML = t('emptyCompletedDesc');
     }
     emptyFilterState.classList.remove('hidden');
   } else {
@@ -795,6 +1373,7 @@ function updateStatsAndFilters() {
 
 /* Creates a single interactive node card with a one-click "?" check toggle */
 function createNodeCard(node) {
+  const localized = getNodeText(node);
   const status = getNodeStatus(node.id);
   const matches = nodeMatchesFilter(node);
   const isStatusOnlyFilter = activeFilter === 'completed' || activeFilter === 'question';
@@ -803,7 +1382,7 @@ function createNodeCard(node) {
   card.setAttribute('role', 'button');
   card.setAttribute('tabindex', '0');
   card.dataset.nodeId = node.id;
-  card.setAttribute('aria-label', `${node.id} ${node.title} — ${status}`);
+  card.setAttribute('aria-label', `${node.id} ${localized.title} — ${status}`);
 
   /* Choose color classes: completed (green) > question (orange) > in-progress (sky) > core (amber) vs practice (purple) */
   let styleClass = node.type === 'core' ? 'node-core' : 'node-practice';
@@ -828,24 +1407,24 @@ function createNodeCard(node) {
   if (status === 'done') {
     statusBadgeHtml = `
       <span class="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full bg-green-700 text-white dark:bg-green-500 dark:text-slate-950 shrink-0">
-        ✓ Done
+        ${t('badgeDone')}
       </span>
     `;
   } else if (status === 'question') {
     statusBadgeHtml = `
       <span class="inline-flex items-center gap-1 text-[10px] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full bg-orange-600 text-white dark:bg-orange-400 dark:text-slate-950 shrink-0">
-        ? Check (0.5x)
+        ${t('badgeCheck')}
       </span>
     `;
   } else if (status === 'in-progress') {
     statusBadgeHtml = `
       <span class="inline-flex items-center gap-1.5 text-[10px] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-full bg-sky-600 text-white dark:bg-sky-400 dark:text-slate-950 shrink-0">
         <span class="w-1.5 h-1.5 rounded-full bg-white dark:bg-slate-950 pulse-dot"></span>
-        Working
+        ${t('badgeWorking')}
       </span>
     `;
   } else {
-    const typeLabel = node.type === 'core' ? 'Core' : 'Practice';
+    const typeLabel = node.type === 'core' ? t('badgeCore') : t('badgePractice');
     const typePillClass =
       node.type === 'core'
         ? 'bg-amber-950/10 text-amber-950 dark:bg-amber-300/20 dark:text-amber-200'
@@ -866,10 +1445,12 @@ function createNodeCard(node) {
   /* Source mini tags at the bottom of the card */
   const sourceTagsHtml = node.sources
     .map((src) => {
-      const label = src === 'codelab' ? 'Google Codelab' : 'Hamodywe Handbook';
+      const label = src === 'codelab' ? t('sourceCodelab') : t('sourceHandbook');
       return `<span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-white/75 dark:bg-slate-950/50 border border-slate-900/15 dark:border-white/15">${label}</span>`;
     })
     .join('');
+
+  const quickTitle = t('quickQuestionTitle');
 
   card.innerHTML = `
     <div class="flex items-start justify-between gap-2">
@@ -881,8 +1462,8 @@ function createNodeCard(node) {
         <button
           type="button"
           data-quick-question="${node.id}"
-          aria-label="Flag ${node.id} with ? (False Info or Need Check — counts as 0.5x)"
-          title="Flag as ? (False Info / Need Check — counts as 0.5x)"
+          aria-label="${node.id} — ${quickTitle}"
+          title="${quickTitle}"
           class="w-5 h-5 rounded-full text-[11px] font-black border transition cursor-pointer flex items-center justify-center shrink-0 ${quickQButtonClass}"
         >
           ?
@@ -890,17 +1471,17 @@ function createNodeCard(node) {
       </div>
     </div>
     <h3 class="node-title mt-2 text-sm sm:text-[15px] font-extrabold leading-snug">
-      ${node.title}
+      ${localized.title}
     </h3>
     <p class="mt-1 text-xs opacity-85 leading-relaxed">
-      ${node.shortSummary}
+      ${localized.shortSummary}
     </p>
     <div class="mt-2.5 flex flex-wrap items-center justify-between gap-1.5">
       <div class="flex flex-wrap gap-1">
         ${sourceTagsHtml}
       </div>
       <span class="text-[11px] font-bold opacity-70 group-hover:opacity-100 transition-opacity">
-        Open Guide →
+        ${t('openGuide')}
       </span>
     </div>
   `;
@@ -912,10 +1493,10 @@ function createNodeCard(node) {
     const current = getNodeStatus(node.id);
     if (current === 'question') {
       delete appState.statuses[node.id];
-      showToast(`Cleared ? flag on ${node.id}.`);
+      showToast(t('toastQuickCleared', { id: node.id }));
     } else {
       appState.statuses[node.id] = 'question';
-      showToast(`Flagged ${node.id} with ? (counts as 0.5 completed).`);
+      showToast(t('toastQuickFlagged', { id: node.id }));
     }
     persistState();
     if (activeNodeId === node.id) {
@@ -980,7 +1561,7 @@ function createStage6Milestone(effectiveDone, totalCount, doneNodes, questionNod
   const allComplete = doneNodes === totalCount;
   const scoreText = formatScore(effectiveDone);
   const questionNote =
-    questionNodes > 0 ? ` (includes ${questionNodes} flagged with ? counting as 0.5 each)` : '';
+    questionNodes > 0 ? t('stage6QuestionNote', { count: questionNodes }) : '';
 
   const section = document.createElement('section');
   section.id = 'stage-6';
@@ -993,26 +1574,27 @@ function createStage6Milestone(effectiveDone, totalCount, doneNodes, questionNod
         : 'bg-white dark:bg-slate-900 border-slate-900 dark:border-slate-600'
     } shadow-[4px_4px_0px_#0f172a] dark:shadow-[4px_4px_0px_#020617]">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-slate-900 dark:bg-amber-300 text-white dark:text-slate-900 mb-3">
-        <span>🏁</span> Stage 6: Autonomous Antigravity Mastery
+        <span>🏁</span> ${t('stage6Badge')}
       </div>
       <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white">
-        ${
-          allComplete
-            ? 'Congratulations! You Mastered All 18 Antigravity Topics!'
-            : 'Your Finish Line: Confident Agentic Building'
-        }
+        ${allComplete ? t('stage6TitleAllDone') : t('stage6TitleDefault')}
       </h2>
       <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-2 max-w-lg mx-auto leading-relaxed">
-        Once you complete Stages 1 through 5 (${scoreText} of ${totalCount} nodes done — ${percent}%${questionNote}), you can direct Google Antigravity to plan blueprints, write code, verify UI in the browser, and remember your personal rules across any new project.
+        ${t('stage6Desc', {
+          score: scoreText,
+          total: totalCount,
+          percent,
+          note: questionNote,
+        })}
       </p>
       <div class="mt-4 flex flex-wrap justify-center gap-2 text-[11px] font-bold">
-        <span class="px-2.5 py-1 rounded-md bg-amber-100 dark:bg-amber-900/40 text-amber-950 dark:text-amber-200 border border-amber-300 dark:border-amber-700">1. Goal Prompt</span>
+        <span class="px-2.5 py-1 rounded-md bg-amber-100 dark:bg-amber-900/40 text-amber-950 dark:text-amber-200 border border-amber-300 dark:border-amber-700">${t('stage6Step1')}</span>
         <span class="self-center text-slate-400">→</span>
-        <span class="px-2.5 py-1 rounded-md bg-indigo-100 dark:bg-indigo-900/40 text-indigo-950 dark:text-indigo-200 border border-indigo-300 dark:border-indigo-700">2. Review Plan</span>
+        <span class="px-2.5 py-1 rounded-md bg-indigo-100 dark:bg-indigo-900/40 text-indigo-950 dark:text-indigo-200 border border-indigo-300 dark:border-indigo-700">${t('stage6Step2')}</span>
         <span class="self-center text-slate-400">→</span>
-        <span class="px-2.5 py-1 rounded-md bg-sky-100 dark:bg-sky-900/40 text-sky-950 dark:text-sky-200 border border-sky-300 dark:border-sky-700">3. Approve Edits</span>
+        <span class="px-2.5 py-1 rounded-md bg-sky-100 dark:bg-sky-900/40 text-sky-950 dark:text-sky-200 border border-sky-300 dark:border-sky-700">${t('stage6Step3')}</span>
         <span class="self-center text-slate-400">→</span>
-        <span class="px-2.5 py-1 rounded-md bg-emerald-100 dark:bg-emerald-900/40 text-emerald-950 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">4. Verify in Browser</span>
+        <span class="px-2.5 py-1 rounded-md bg-emerald-100 dark:bg-emerald-900/40 text-emerald-950 dark:text-emerald-200 border border-emerald-300 dark:border-emerald-700">${t('stage6Step4')}</span>
       </div>
     </div>
   `;
@@ -1038,6 +1620,8 @@ function renderRoadmap() {
   }
 
   ROADMAP_STAGES.forEach((stage, stageIndex) => {
+    const localizedStage = getStageText(stage);
+
     /* For status-only filters, skip stages that have 0 matching nodes */
     const stageHasMatch = stage.rows.some((row) =>
       [row.core, row.leftBranch, row.rightBranch].filter(Boolean).some(nodeMatchesFilter)
@@ -1057,17 +1641,17 @@ function renderRoadmap() {
     stageHeader.innerHTML = `
       <div class="flex flex-wrap items-center justify-center gap-2 mb-1">
         <span class="text-[11px] font-extrabold uppercase tracking-widest px-2 py-0.5 rounded bg-amber-300 text-slate-900">
-          Stage ${stage.number}
+          ${t('stageBadge', { num: stage.number })}
         </span>
         <span class="text-[11px] font-semibold text-slate-300">
-          Source: ${stage.sourceSummary}
+          ${t('sourcePrefix')} ${localizedStage.sourceSummary}
         </span>
       </div>
       <h2 class="text-base sm:text-lg font-extrabold tracking-tight">
-        ${stage.title.replace(/^Stage \d+:\s*/, '')}
+        ${localizedStage.title.replace(/^Stage \d+:\s*|^Giai Đoạn \d+:\s*/i, '')}
       </h2>
       <p class="text-xs text-slate-300 mt-1">
-        ${stage.subtitle}
+        ${localizedStage.subtitle}
       </p>
     `;
     stageSection.appendChild(stageHeader);
@@ -1153,30 +1737,30 @@ function refreshDrawerStatusUI(node) {
 
   /* Update Type Badge */
   if (node.type === 'core') {
-    drawerTypeBadge.textContent = 'Core Must-Learn Topic';
+    drawerTypeBadge.textContent = t('drawerTypeCore');
     drawerTypeBadge.className =
       'text-xs font-bold px-2.5 py-0.5 rounded-full border bg-amber-100 text-amber-950 border-amber-400 dark:bg-amber-900/50 dark:text-amber-200 dark:border-amber-600';
   } else {
-    drawerTypeBadge.textContent = 'Hands-On Practice Task';
+    drawerTypeBadge.textContent = t('drawerTypePractice');
     drawerTypeBadge.className =
       'text-xs font-bold px-2.5 py-0.5 rounded-full border bg-indigo-100 text-indigo-950 border-indigo-400 dark:bg-indigo-900/50 dark:text-indigo-200 dark:border-indigo-600';
   }
 
   /* Update Status Pill */
   if (status === 'done') {
-    drawerStatusPill.textContent = '✓ Completed (1x)';
+    drawerStatusPill.textContent = t('statusDone');
     drawerStatusPill.className =
       'text-xs font-bold px-2.5 py-0.5 rounded-full bg-green-100 text-green-800 border border-green-400 dark:bg-green-900/60 dark:text-green-200 dark:border-green-600';
   } else if (status === 'question') {
-    drawerStatusPill.textContent = '? Need Check (0.5x)';
+    drawerStatusPill.textContent = t('statusQuestion');
     drawerStatusPill.className =
       'text-xs font-bold px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-900 border border-orange-400 dark:bg-orange-950/70 dark:text-orange-200 dark:border-orange-500';
   } else if (status === 'in-progress') {
-    drawerStatusPill.textContent = '◔ In Progress';
+    drawerStatusPill.textContent = t('statusInProgress');
     drawerStatusPill.className =
       'text-xs font-bold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-900 border border-sky-400 dark:bg-sky-900/60 dark:text-sky-200 dark:border-sky-600';
   } else {
-    drawerStatusPill.textContent = 'Not Started';
+    drawerStatusPill.textContent = t('statusNotStarted');
     drawerStatusPill.className =
       'text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300';
   }
@@ -1198,18 +1782,21 @@ function refreshDrawerStatusUI(node) {
 function openDrawer(nodeId) {
   const node = NODE_MAP[nodeId];
   if (!node) return;
+  const localized = getNodeText(node);
+  const parentStage = ROADMAP_STAGES.find((s) => s.number === Number(node.id.split('.')[0]));
+  const localizedStageTitle = parentStage ? getStageText(parentStage).title : node.stage;
   activeNodeId = nodeId;
 
   /* Fill text fields */
   drawerNodeId.textContent = node.id;
-  drawerTitle.textContent = node.title;
-  drawerStageLabel.textContent = node.stage;
-  drawerExplanation.textContent = node.explanation;
-  drawerTryIt.textContent = node.tryIt;
+  drawerTitle.textContent = localized.title;
+  drawerStageLabel.textContent = localizedStageTitle;
+  drawerExplanation.textContent = localized.explanation;
+  drawerTryIt.textContent = localized.tryIt;
 
   /* Plain-English Term Tip (only shown if provided) */
-  if (node.jargonTip) {
-    drawerJargonTip.innerHTML = `<strong>Plain-English Tip:</strong> ${node.jargonTip}`;
+  if (localized.jargonTip) {
+    drawerJargonTip.innerHTML = `<strong>${t('jargonTipPrefix')}</strong> ${localized.jargonTip}`;
     drawerJargonTip.classList.remove('hidden');
   } else {
     drawerJargonTip.classList.add('hidden');
@@ -1226,7 +1813,7 @@ function openDrawer(nodeId) {
         class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-700 hover:border-indigo-500 transition"
       >
         <span>📖</span>
-        <span>${link.label}</span>
+        <span>${translateSourceLabel(link.label)}</span>
         <span class="opacity-60">↗</span>
       </a>
     `
@@ -1234,7 +1821,7 @@ function openDrawer(nodeId) {
     .join('');
 
   /* Click Path & Shortcut list */
-  drawerShortcutSteps.innerHTML = node.shortcuts
+  drawerShortcutSteps.innerHTML = localized.shortcuts
     .map(
       (step, idx) => `
       <div class="flex items-start gap-2.5">
@@ -1300,22 +1887,22 @@ document.addEventListener('keydown', (event) => {
 
 btnMarkDone.addEventListener('click', () => {
   setActiveNodeStatus('done');
-  showToast('Marked as Done & saved to browser storage!');
+  showToast(t('toastDone'));
 });
 
 btnMarkProgress.addEventListener('click', () => {
   setActiveNodeStatus('in-progress');
-  showToast('Marked as In Progress!');
+  showToast(t('toastInProgress'));
 });
 
 btnMarkQuestion.addEventListener('click', () => {
   setActiveNodeStatus('question');
-  showToast('Flagged with ? (counts as 0.5 completed work)!');
+  showToast(t('toastQuestion'));
 });
 
 btnMarkReset.addEventListener('click', () => {
   setActiveNodeStatus('todo');
-  showToast('Node status reset.');
+  showToast(t('toastReset'));
 });
 
 /* Save personal notes immediately while typing */
@@ -1384,7 +1971,7 @@ exportBtn.addEventListener('click', () => {
   link.click();
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
-  showToast('Progress exported to antigravity-roadmap-progress.json!');
+  showToast(t('toastExported'));
 });
 
 /* Import JSON: Opens file picker and safely restores exported statuses and notes */
@@ -1401,7 +1988,7 @@ importFileInput.addEventListener('change', (event) => {
     try {
       const parsed = JSON.parse(e.target.result);
       if (!parsed || typeof parsed.statuses !== 'object') {
-        showToast('Invalid backup file format.');
+        showToast(t('toastInvalidBackup'));
         return;
       }
 
@@ -1429,9 +2016,9 @@ importFileInput.addEventListener('change', (event) => {
       persistState();
       renderRoadmap();
       if (activeNodeId) openDrawer(activeNodeId);
-      showToast('Backup restored successfully!');
+      showToast(t('toastRestored'));
     } catch (err) {
-      showToast('Could not read JSON file. Please pick a valid export file.');
+      showToast(t('toastJsonError'));
     } finally {
       importFileInput.value = '';
     }
@@ -1440,8 +2027,82 @@ importFileInput.addEventListener('change', (event) => {
 });
 
 /* --------------------------------------------------------------------------
-   SECTION 9: INITIAL PAGE STARTUP
-   Sets the saved theme and draws the roadmap as soon as the page loads.
+   SECTION 9: LANGUAGE SWITCHER, OVERVIEW TOGGLE & INITIAL PAGE STARTUP
+   Handles English/Vietnamese switching, collapsing/expanding the overview
+   card, setting the saved theme, and drawing the roadmap on startup.
    -------------------------------------------------------------------------- */
+function applyOverviewState(collapsed) {
+  if (!overviewBody || !overviewToggleBtn || !overviewToggleLabel) return;
+  overviewBody.classList.toggle('hidden', collapsed);
+  overviewToggleBtn.setAttribute('aria-expanded', String(!collapsed));
+  overviewToggleLabel.textContent = collapsed ? t('showOverview') : t('hideOverview');
+  localStorage.setItem(OVERVIEW_KEY, collapsed ? '1' : '0');
+}
+
+function initOverview() {
+  if (!overviewToggleBtn) return;
+  const savedCollapsed = localStorage.getItem(OVERVIEW_KEY) === '1';
+  applyOverviewState(savedCollapsed);
+  overviewToggleBtn.addEventListener('click', () => {
+    const isCurrentlyHidden = overviewBody.classList.contains('hidden');
+    applyOverviewState(!isCurrentlyHidden);
+  });
+}
+
+function applyLanguage(lang, announce = false) {
+  currentLang = lang === 'vi' ? 'vi' : 'en';
+  localStorage.setItem(LANG_KEY, currentLang);
+
+  /* Update HTML lang attribute and browser tab title */
+  document.documentElement.lang = currentLang;
+  document.title = t('pageTitle');
+
+  /* Update static elements tagged with data-i18n, data-i18n-html, or data-i18n-placeholder */
+  document.querySelectorAll('[data-i18n]').forEach((el) => {
+    el.textContent = t(el.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+    el.innerHTML = t(el.dataset.i18nHtml);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach((el) => {
+    el.setAttribute('placeholder', t(el.dataset.i18nPlaceholder));
+  });
+
+  /* Update language toggle button labels to show the alternate language */
+  if (langToggleLabel) {
+    langToggleLabel.textContent = currentLang === 'en' ? 'Tiếng Việt' : 'English';
+  }
+  if (compactLangLabel) {
+    compactLangLabel.textContent = currentLang === 'en' ? 'VI' : 'EN';
+  }
+
+  /* Refresh dynamic button labels (Theme + Overview) and redraw flowchart */
+  const currentlyDark = document.documentElement.classList.contains('dark');
+  themeLabel.textContent = currentlyDark ? t('lightMode') : t('darkMode');
+  if (overviewBody && overviewToggleLabel) {
+    const isCollapsed = overviewBody.classList.contains('hidden');
+    overviewToggleLabel.textContent = isCollapsed ? t('showOverview') : t('hideOverview');
+  }
+
+  renderRoadmap();
+  if (activeNodeId) {
+    openDrawer(activeNodeId);
+  }
+  if (announce) {
+    showToast(t('toastLangSwitched'));
+  }
+}
+
+function initLanguage() {
+  const toggleHandler = () => {
+    const nextLang = currentLang === 'en' ? 'vi' : 'en';
+    applyLanguage(nextLang, true);
+  };
+  if (langToggleBtn) langToggleBtn.addEventListener('click', toggleHandler);
+  if (compactLangToggleBtn) compactLangToggleBtn.addEventListener('click', toggleHandler);
+  applyLanguage(currentLang, false);
+}
+
 initTheme();
-renderRoadmap();
+initOverview();
+initLanguage();
